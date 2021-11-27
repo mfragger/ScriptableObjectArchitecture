@@ -1,6 +1,8 @@
-﻿namespace ScriptableObjectArchitecture
+﻿using UnityEngine;
+
+namespace ScriptableObjectArchitecture
 {
-    public class AudioEventListener : GameEventListener<AudioEvent>
+    public class GameObjectEventListener : GameEventListener<GameObjectEvent>
     {
         protected override void OnEnable()
         {

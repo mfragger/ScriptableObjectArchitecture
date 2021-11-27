@@ -1,9 +1,9 @@
 ﻿using UnityEditor;
 
-namespace ScriptableObjectArchitecture.Editor.Generated
+namespace ScriptableObjectArchitecture.Editor
 {
-    [CustomEditor(typeof(AudioEventListener))]
-    public class AudioEventListnerView : UnityEditor.Editor
+    [CustomEditor(typeof(GameObjectEventListener))]
+    public class GameObjectEventListenerInspector : UnityEditor.Editor
     {
         SerializedProperty intB;
         SerializedProperty intA;
