@@ -1,5 +1,5 @@
 {
-    "name": "SOArchitecture.Editor",
+    "name": "ScriptableObjectArchitecture.Editor",
     "rootNamespace": "ScriptableObjectArchitecture.Editor",
     "references": [
         "GUID:47400759a67982b45acd49cb17e4919b"
