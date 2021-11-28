@@ -4,8 +4,5 @@ using UnityEngine;
 namespace ScriptableObjectArchitecture
 {
     [CreateAssetMenu(menuName = "Collection/Reference/Quarternion's")]
-    public class QuaternionCollectionReference : Collection
-    {
-        public List<Quaternion> Values;
-    }
+    public class QuaternionCollectionReference : Collection<Quaternion> { }
 }

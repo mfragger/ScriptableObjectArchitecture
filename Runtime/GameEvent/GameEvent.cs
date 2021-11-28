@@ -1,23 +1,27 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace ScriptableObjectArchitecture
 {
-    [CreateAssetMenu]
-    public class GameObjectEvent : GameEvent<GameObjectEventListener>
+    [CreateAssetMenu(menuName = "GameEvent Object", fileName = "New GameEvent Object", order = 11)]
+
+    public class GameEvent : ScriptableObject
     {
-        public override void Register(GameObjectEventListener gameEventListener)
+        protected List<GameEventListener> EventListeners = new List<GameEventListener>();
+
+        public void Register(GameEventListener gameEventListener)
         {
             if (!EventListeners.Contains(gameEventListener))
                 EventListeners.Add(gameEventListener);
         }
 
-        public override void Unregister(GameObjectEventListener gameEventListener)
+        public void Unregister(GameEventListener gameEventListener)
         {
             if (EventListeners.Contains(gameEventListener))
                 EventListeners.Remove(gameEventListener);
         }
 
-        public override void InvokEvent()
+        public void InvokEvent()
         {
             for (int i = (EventListeners.Count - 1); i >= 0; i--)
             {

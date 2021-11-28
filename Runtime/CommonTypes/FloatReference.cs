@@ -3,8 +3,5 @@
 namespace ScriptableObjectArchitecture
 {
     [CreateAssetMenu(menuName = "Variable/Reference/float")]
-    public class FloatReference : Variable
-    {
-        public float Value;
-    }
+    public class FloatReference : Variable<float> { }
 }

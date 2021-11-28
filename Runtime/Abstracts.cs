@@ -1,100 +1,58 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.SceneManagement;
+using ScriptableObjectArchitecture.Serializables;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace ScriptableObjectArchitecture
 {
-    public abstract class Variable : ScriptableObject { }
-    public abstract class ConstantVariable<T> : Variable
+    //Variables
+    public abstract class Variable<T> : ScriptableObject
     {
-        public abstract T GetValue();
+        public T Value;
     }
-    public abstract class Collection : ScriptableObject { }
-    public abstract class ConstantCollection<T> : Collection
-    {
-        public abstract T GetValue(int i);
-    }
-    public abstract class GameEvent<T> : GameEvent where T : GameEventListener
-    {
-        protected List<T> EventListeners = new List<T>();
-        public abstract void Register(T gameEventListener);
-        public abstract void Unregister(T gameEventListener);
-    }
-
-    public abstract class GameEventListener : MonoBehaviour
-    {
-        protected abstract void OnEnable();
-        protected abstract void OnDisable();
-
-    }
-
-    public abstract class GameEventListener<T> : GameEventListener where T : GameEvent
+    public abstract class ConstantVariable<T> : ScriptableObject
     {
         [SerializeField]
-        protected T GameEvent;
+        private T Value;
+        public T GetValue()
+        {
+            return Value;
+        }
+    }
 
+    //Collections
+    public abstract class Collection<T> : ScriptableObject
+    {
+        public T[] Value;
+
+    }
+    public abstract class ConstantCollection<T> : ScriptableObject
+    {
         [SerializeField]
-        protected UnityEvent Response;
-
-        /// <summary>
-        /// Don't call this on Awake
-        /// </summary>
-        public void OnEventRaised()
+        private new T[] Values;
+        public T GetValue(int i)
         {
-            Response.Invoke();
+            return Values[i];
         }
-    }
-
-    public abstract class GameEvent : ScriptableObject
-    {
-        public abstract void InvokEvent();
-    }
-
-    public abstract class TagObject<T> : ScriptableObject
-    {
-        [HideInInspector]
-        public List<T> TaggedObjects;
-
-        public void Add(T Object)
+        public T[] GetValueRange(int fromIndexInclusive, int toIndexInclusive)
         {
-            TaggedObjects.Add(Object);
+            return Values[fromIndexInclusive..(toIndexInclusive - 1)];
         }
-        public void Remove(T Object)
+        public T[] GetCollection()
         {
-            TaggedObjects.Remove(Object);
+            return Values.ToArray<T>();
         }
-    }
-
-    public abstract class TagMonoBehaviour<T> : MonoBehaviour
-    {
-        public List<TagObject<T>> Tags;
-
-        /// <summary>
-        /// when overrding call AddObject(T Object)
-        /// </summary>
-        protected abstract void OnEnable();
-
-        protected void AddObject(T Object)
+        public T Find(T item)
         {
-            for (int i = 0; i < Tags.Count; i++)
+            for (int i = 0; i < Values.Length; i++)
             {
-                Tags[i].Add(Object);
+                if (Values[i].Equals(item))
+                    return Values[i];
             }
+            return default;
         }
-
-        /// <summary>
-        /// when overrding call RemoveObject(T Object)
-        /// </summary>
-        protected abstract void OnDisable();
-
-        protected void RemoveObject(T Object)
+        public int GetLength()
         {
-            for (int i = 0; i < Tags.Count; i++)
-            {
-                Tags[i].Add(Object);
-            }
+            return Values.Length;
         }
     }
 }

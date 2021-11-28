@@ -1,7 +1,9 @@
 {
     "name": "SOArchitecture",
     "rootNamespace": "ScriptableObjectArchitecture",
-    "references": [],
+    "references": [
+        "GUID:2bae730322386984eb8e01224b34beb9"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

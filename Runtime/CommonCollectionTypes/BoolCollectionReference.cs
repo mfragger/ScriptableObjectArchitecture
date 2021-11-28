@@ -4,8 +4,5 @@ using UnityEngine;
 namespace ScriptableObjectArchitecture
 {
     [CreateAssetMenu(menuName = "Collection/Reference/bool's")]
-    public class BoolCollectionReference : Collection
-    {
-        public List<bool> Values;
-    }
+    public class BoolCollectionReference : Collection<bool> { }
 }
