@@ -1,5 +1,8 @@
+using JetBrains.Annotations;
 using ScriptableObjectArchitecture.Serializables;
+using System;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 namespace ScriptableObjectArchitecture
@@ -8,21 +11,66 @@ namespace ScriptableObjectArchitecture
     public abstract class Variable<T> : ScriptableObject
     {
         public T Value;
+
+#if UNITY_EDITOR
+        public bool ResetAfterPlayMode;
+
+        [NonSerialized]
+        public Variable<T> CopyObject;
+
+        public void ReInitCache(PlayModeStateChange playModeStateChange)
+        {
+            if (PlayModeStateChange.ExitingPlayMode == playModeStateChange)
+            {
+                if (CopyObject != null)
+                {
+                    Value = CopyObject.Value;
+                    DestroyImmediate(CopyObject);
+                    CopyObject = null;
+                }
+                EditorApplication.playModeStateChanged -= ReInitCache;
+            }
+        }
+#endif
+
     }
     public abstract class ConstantVariable<T> : ScriptableObject
     {
         [SerializeField]
-        private T Value;
-        public T GetValue()
+        private T value;
+
+        public T Value
         {
-            return Value;
+            get
+            {
+                T copy = Value;
+                return copy;
+            }
         }
     }
 
     //Collections
     public abstract class Collection<T> : ScriptableObject
     {
-        public T[] Value;
+        public T[] Values;
+
+#if UNITY_EDITOR
+        public bool ResetAfterPlayMode;
+
+        [NonSerialized]
+        public Collection<T> CopyObject;
+
+        public void ReInitCache(PlayModeStateChange playModeStateChange)
+        {
+            if (PlayModeStateChange.ExitingPlayMode == playModeStateChange)
+            {
+                Values = CopyObject.Values;
+                DestroyImmediate(CopyObject);
+                CopyObject = null;
+                EditorApplication.playModeStateChanged -= ReInitCache;
+            }
+        }
+#endif
 
     }
     public abstract class ConstantCollection<T> : ScriptableObject
@@ -39,7 +87,7 @@ namespace ScriptableObjectArchitecture
         }
         public T[] GetCollection()
         {
-            return Values.ToArray<T>();
+            return Values.ToArray();
         }
         public T Find(T item)
         {

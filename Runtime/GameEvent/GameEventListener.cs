@@ -11,6 +11,10 @@ namespace ScriptableObjectArchitecture
         [SerializeField]
         protected UnityEvent Response;
 
+        private void Awake()
+        {
+            this.enabled = !(GameEvent == null);
+        }
         private void OnEnable()
         {
             GameEvent.Register(this);
