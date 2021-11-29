@@ -2,6 +2,6 @@
 
 namespace ScriptableObjectArchitecture
 {
-    [CreateAssetMenu(menuName = "Collection/Constant/float's")]
+    [CreateAssetMenu(menuName = "SO Architecture/Collection/Constant/float's")]
     public class ConstFloatCollection : ConstantCollection<float> { }
 }

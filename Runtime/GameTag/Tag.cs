@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ScriptableObjectArchitecture
 {
-    [CreateAssetMenu(menuName = "Tag", fileName = "New Tag Name")]
+    [CreateAssetMenu(menuName = "SO Architecture/Tag", fileName = "New Tag Name")]
     public class Tag : ScriptableObject
     {
         public List<GameObject> Tagged;

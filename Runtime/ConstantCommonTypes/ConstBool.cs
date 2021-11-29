@@ -2,6 +2,6 @@
 
 namespace ScriptableObjectArchitecture
 {
-    [CreateAssetMenu(menuName = "Variable/Constant/bool")]
+    [CreateAssetMenu(menuName = "SO Architecture/Variable/Constant/bool")]
     public class ConstBool : ConstantVariable<bool> { }
 }

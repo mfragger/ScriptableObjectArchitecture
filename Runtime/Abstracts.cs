@@ -1,5 +1,4 @@
 using JetBrains.Annotations;
-using ScriptableObjectArchitecture.Serializables;
 using System;
 using System.Linq;
 using UnityEditor;

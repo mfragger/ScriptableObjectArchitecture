@@ -2,6 +2,6 @@
 
 namespace ScriptableObjectArchitecture
 {
-    [CreateAssetMenu(menuName = "Variable/Constant/float")]
+    [CreateAssetMenu(menuName = "SO Architecture/Variable/Constant/float")]
     public class ConstFloat : ConstantVariable<float> { }
 }

@@ -3,6 +3,6 @@ using UnityEngine;
 
 namespace ScriptableObjectArchitecture
 {
-    [CreateAssetMenu(menuName = "Collection/Reference/bool's")]
+    [CreateAssetMenu(menuName = "SO Architecture/Collection/Reference/bool's")]
     public class BoolCollectionReference : Collection<bool> { }
 }

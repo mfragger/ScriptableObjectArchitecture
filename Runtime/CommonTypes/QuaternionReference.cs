@@ -2,6 +2,6 @@
 
 namespace ScriptableObjectArchitecture
 {
-    [CreateAssetMenu(menuName = "Variable/Reference/Quaternion")]
+    [CreateAssetMenu(menuName = "SO Architecture/Variable/Reference/Quaternion")]
     public class QuaternionReference : Variable<Quaternion> { }
 }

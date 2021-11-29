@@ -3,6 +3,6 @@ using UnityEngine;
 
 namespace ScriptableObjectArchitecture
 {
-    [CreateAssetMenu(menuName = "Collection/Reference/float's")]
+    [CreateAssetMenu(menuName = "SO Architecture/Collection/Reference/float's")]
     public class FloatCollectionReference : Collection<float> { }
 }

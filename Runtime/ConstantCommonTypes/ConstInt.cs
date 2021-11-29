@@ -2,6 +2,6 @@
 
 namespace ScriptableObjectArchitecture
 {
-    [CreateAssetMenu(menuName = "Variable/Constant/int")]
+    [CreateAssetMenu(menuName = "SO Architecture/Variable/Constant/int")]
     public class ConstInt : ConstantVariable<int> { }
 }

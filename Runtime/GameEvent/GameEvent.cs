@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ScriptableObjectArchitecture
 {
-    [CreateAssetMenu(menuName = "GameEvent Object", fileName = "New GameEvent Object", order = 11)]
+    [CreateAssetMenu(menuName = "SO Architecture/Event/GameEvent Object", fileName = "New GameEvent Object", order = 11)]
 
     public class GameEvent : ScriptableObject
     {

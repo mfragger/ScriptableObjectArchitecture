@@ -3,6 +3,6 @@ using UnityEngine;
 
 namespace ScriptableObjectArchitecture
 {
-    [CreateAssetMenu(menuName = "Collection/Reference/Vector3Int's")]
+    [CreateAssetMenu(menuName = "SO Architecture/Collection/Reference/Vector3Int's")]
     public class Vector3IntCollectionReference : Collection<Vector3Int> { }
 }

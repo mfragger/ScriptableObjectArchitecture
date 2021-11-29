@@ -2,6 +2,6 @@
 
 namespace ScriptableObjectArchitecture
 {
-    [CreateAssetMenu(menuName = "Variable/Constant/Quarternion")]
+    [CreateAssetMenu(menuName = "SO Architecture/Variable/Constant/Quarternion")]
     public class ConstQuaternion : ConstantVariable<Quaternion> { }
 }

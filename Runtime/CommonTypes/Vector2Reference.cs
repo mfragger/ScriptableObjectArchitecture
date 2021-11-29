@@ -2,6 +2,6 @@
 
 namespace ScriptableObjectArchitecture
 {
-    [CreateAssetMenu(menuName = "Variable/Reference/Vector2")]
+    [CreateAssetMenu(menuName = "SO Architecture/Variable/Reference/Vector2")]
     public class Vector2Reference : Variable<Vector2> { }
 }

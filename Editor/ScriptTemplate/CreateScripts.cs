@@ -14,7 +14,7 @@ namespace ScriptableObjectArchitecture.Editor
         private const string packagesFolder = "Packages/com.mfragger.scriptableobjectarchitecture/Editor/ScriptTemplate";
         private const string SOReferencedBehaviour = "NewBehaviourScript.cs.txt";
 
-        [MenuItem(itemName: "Assets/Create/SOArchitecture/C# SO Referenced Script", isValidateFunction: false, priority: 51)]
+        [MenuItem(itemName: "Assets/Create/SO Architecture/C# SO Referenced Script", isValidateFunction: false, priority: 61)]
         public static void CreateClassFromTemplate()
         {
             string asset = AssetDatabase.AssetPathToGUID($"{packagesFolder}/{SOReferencedBehaviour}");

@@ -1,6 +1,12 @@
 {
   "name": "com.mfragger.scriptableobjectarchitecture",
-  "version": "0.2.0",
+  "version": "0.2.1",
+  "displayName": "Scriptable Object Architecture",
+  "description": "Another take on the Scriptable Object Architecture",
+  "unity": "2020.3",
+  "author": {
+    "name": "mfragger"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/mfragger/ScriptableObjectArchitecture"
@@ -9,9 +15,5 @@
     "scriptable object",
     "framework",
     "architecture"
-  ],
-  "displayName": "Scriptable Object Architecture",
-  "unity": "2020.3",
-  "dependencies": {
-  }
+  ]
 }

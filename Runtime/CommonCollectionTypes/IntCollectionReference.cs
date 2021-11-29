@@ -3,6 +3,6 @@ using UnityEngine;
 
 namespace ScriptableObjectArchitecture
 {
-    [CreateAssetMenu(menuName = "Collection/Reference/int's")]
+    [CreateAssetMenu(menuName = "SO Architecture/Collection/Reference/int's")]
     public class IntCollectionReference : Collection<int> { }
 }

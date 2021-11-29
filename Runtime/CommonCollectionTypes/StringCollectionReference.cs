@@ -3,6 +3,6 @@ using UnityEngine;
 
 namespace ScriptableObjectArchitecture
 {
-    [CreateAssetMenu(menuName = "Collection/Reference/string's")]
+    [CreateAssetMenu(menuName = "SO Architecture/Collection/Reference/string's")]
     public class StringCollectionReference : Collection<string> { }
 }

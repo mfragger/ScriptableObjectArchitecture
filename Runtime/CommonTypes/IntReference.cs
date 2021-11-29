@@ -2,6 +2,6 @@
 
 namespace ScriptableObjectArchitecture
 {
-    [CreateAssetMenu(menuName = "Variable/Reference/int")]
+    [CreateAssetMenu(menuName = "SO Architecture/Variable/Reference/int")]
     public class IntReference : Variable<int> { }
 }

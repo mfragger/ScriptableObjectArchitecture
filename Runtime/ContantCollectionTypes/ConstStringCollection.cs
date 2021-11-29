@@ -3,6 +3,6 @@ using UnityEngine;
 
 namespace ScriptableObjectArchitecture
 {
-    [CreateAssetMenu(menuName = "Collection/Constant/string's")]
+    [CreateAssetMenu(menuName = "SO Architecture/Collection/Constant/string's")]
     public class ConstStringCollection : ConstantCollection<string> { }
 }

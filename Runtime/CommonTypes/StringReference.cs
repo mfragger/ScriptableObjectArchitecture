@@ -2,6 +2,6 @@
 
 namespace ScriptableObjectArchitecture
 {
-    [CreateAssetMenu(menuName = "Variable/Reference/string")]
+    [CreateAssetMenu(menuName = "SO Architecture/Variable/Reference/string")]
     public class StringReference : Variable<string> { }
 }
