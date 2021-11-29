@@ -42,7 +42,7 @@ namespace ScriptableObjectArchitecture
         {
             get
             {
-                T copy = Value;
+                T copy = value;
                 return copy;
             }
         }
