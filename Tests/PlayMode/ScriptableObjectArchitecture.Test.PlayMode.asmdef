@@ -1,16 +1,13 @@
 {
-    "name": "ScriptableObjectArchitecture.Test.EditMode",
+    "name": "ScriptableObjectArchitecture.Test.PlayMode",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "Shion.Tools",
         "ScriptableObjectArchitecture",
         "ScriptableObjectArchitecture.Test.Templates"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,

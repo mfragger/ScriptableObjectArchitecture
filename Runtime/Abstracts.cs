@@ -38,14 +38,7 @@ namespace ScriptableObjectArchitecture
         [SerializeField]
         private T value;
 
-        public T Value
-        {
-            get
-            {
-                T copy = value;
-                return copy;
-            }
-        }
+        public T Value => value;
     }
 
     //Collections
@@ -75,7 +68,7 @@ namespace ScriptableObjectArchitecture
     public abstract class ConstantCollection<T> : ScriptableObject
     {
         [SerializeField]
-        private new T[] Values;
+        private T[] Values;
         public T GetValue(int i)
         {
             return Values[i];

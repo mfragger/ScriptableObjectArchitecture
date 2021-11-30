@@ -21,7 +21,7 @@ namespace ScriptableObjectArchitecture
                 EventListeners.Remove(gameEventListener);
         }
 
-        public void InvokEvent()
+        public void InvokeEvent()
         {
             for (int i = (EventListeners.Count - 1); i >= 0; i--)
             {

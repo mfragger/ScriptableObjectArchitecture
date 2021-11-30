@@ -1,10 +1,9 @@
-﻿using JetBrains.Annotations;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ScriptableObjectArchitecture
 {
     [DisallowMultipleComponent]
-    public class GameObjectTags : MonoBehaviour
+    public class GameTags : MonoBehaviour
     {
         public Tag[] Tags;
 
@@ -14,7 +13,7 @@ namespace ScriptableObjectArchitecture
             {
                 if (Tags[i] != null)
                 {
-                    Tags[i].Add(gameObject);
+                    Tags[i].Tagged.Add(gameObject);
                 }
             }
         }
@@ -25,7 +24,7 @@ namespace ScriptableObjectArchitecture
             {
                 if (Tags[i] != null)
                 {
-                    Tags[i].Remove(gameObject);
+                    Tags[i].Tagged.Remove(gameObject);
                 }
             }
         }

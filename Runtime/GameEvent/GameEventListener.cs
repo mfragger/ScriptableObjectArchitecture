@@ -3,18 +3,10 @@ using UnityEngine.Events;
 
 namespace ScriptableObjectArchitecture
 {
-    public class GameEventListener : MonoBehaviour
+    public class GameEventListener : ScriptableObjectEventListener
     {
         [SerializeField]
         protected GameEvent GameEvent;
-
-        [SerializeField]
-        protected UnityEvent Response;
-
-        private void Awake()
-        {
-            this.enabled = !(GameEvent == null);
-        }
         private void OnEnable()
         {
             GameEvent.Register(this);
@@ -30,4 +22,6 @@ namespace ScriptableObjectArchitecture
             Response.Invoke();
         }
     }
+
+
 }
