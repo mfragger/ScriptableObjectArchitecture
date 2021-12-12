@@ -7,79 +7,54 @@ using UnityEngine;
 namespace ScriptableObjectArchitecture
 {
     [Serializable]
-    public class SerializedHashSet<T> : ISet<T>, ISerializationCallbackReceiver
+    public class SerializedHashSet<T> : ISet<T>, IReadOnlyCollection<T>, ISerializationCallbackReceiver
     {
         [SerializeField]
         private List<T> list = new List<T>();
 
         private HashSet<T> set = new HashSet<T>();
 
-        //[SerializeField]
-        //private bool collision;
+        public int Count => set.Count();
 
-        public void OnBeforeSerialize() { }
-        public void OnAfterDeserialize()
+        public bool IsReadOnly => false;
+
+        public void OnBeforeSerialize()
         {
-            set.Clear();
-            for (int i = 0; i < list.Count; i++)
+            list.Clear();
+            foreach (var item in set)
             {
-                var item = list[i];
-                if (item != null && !Contains(item))
-                {
-                    set.Add(item);
-                }
-                else
-                {
-                    //collision = true;
-                }
+                list.Add(item);
             }
         }
 
-        public int Count => set.Count;
-
-        public bool IsReadOnly => throw new NotImplementedException();
+        public void OnAfterDeserialize()
+        {
+            set = new HashSet<T>();
+            for (int i = 0; i < list.Count; i++)
+            {
+                set.Add(list[i]);
+            }
+        }
 
         public bool Add(T item)
         {
             if (set.Add(item))
             {
                 list.Add(item);
+                return true;
             }
-            return true;
-        }
-
-        public void Clear()
-        {
-            set.Clear();
-            list.Clear();
-        }
-
-        public bool Contains(T item)
-        {
-            return set.Contains(item);
-        }
-
-        public void CopyTo(T[] array, int arrayIndex)
-        {
-            set.CopyTo(array, arrayIndex);
+            return false;
         }
 
         public void ExceptWith(IEnumerable<T> other)
         {
             set.ExceptWith(other);
-            list.Clear();
             list = set.ToList();
-        }
-
-        public IEnumerator<T> GetEnumerator()
-        {
-            return set.GetEnumerator();
         }
 
         public void IntersectWith(IEnumerable<T> other)
         {
-            set.IntersectWith(other);
-            list.Clear();
+            set.Intersect(other);
             list = set.ToList();
         }
 
@@ -103,15 +78,9 @@ namespace ScriptableObjectArchitecture
             return set.IsSupersetOf(other);
         }
 
-
         public bool Overlaps(IEnumerable<T> other)
         {
             return set.Overlaps(other);
-        }
-
-        public bool Remove(T item)
-        {
-            return set.Remove(item);
         }
 
         public bool SetEquals(IEnumerable<T> other)
@@ -122,16 +91,51 @@ namespace ScriptableObjectArchitecture
         public void SymmetricExceptWith(IEnumerable<T> other)
         {
             set.SymmetricExceptWith(other);
+            list = set.ToList();
         }
 
         public void UnionWith(IEnumerable<T> other)
         {
             set.UnionWith(other);
+            list = set.ToList();
         }
 
         void ICollection<T>.Add(T item)
         {
             set.Add(item);
+            list = set.ToList();
+        }
+
+        public void Clear()
+        {
+            set.Clear();
+            list.Clear();
+        }
+
+        public bool Contains(T item)
+        {
+            return set.Contains(item);
+        }
+
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            set.CopyTo(array, arrayIndex);
+            list = set.ToList();
+        }
+
+        public bool Remove(T item)
+        {
+            if (set.Remove(item))
+            {
+                list.Remove(item);
+                return true;
+            }
+            return false;
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return set.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

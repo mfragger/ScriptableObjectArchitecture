@@ -3,28 +3,27 @@
 namespace ScriptableObjectArchitecture
 {
     [DisallowMultipleComponent]
-    public class GameTags : MonoBehaviour
+    [ExecuteAlways]
+    public class GameObjectTagger : ObjectTagger<GameObject>
     {
-        public Tag[] Tags;
-
-        private void OnEnable()
+        protected override void OnEnable()
         {
             for (int i = 0; i < Tags.Length; i++)
             {
                 if (Tags[i] != null)
                 {
-                    Tags[i].Tagged.Add(gameObject);
+                    Tags[i].TaggedObjects.Add(gameObject);
                 }
             }
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
             for (int i = 0; i < Tags.Length; i++)
             {
                 if (Tags[i] != null)
                 {
-                    Tags[i].Tagged.Remove(gameObject);
+                    Tags[i].TaggedObjects.Remove(gameObject);
                 }
             }
         }

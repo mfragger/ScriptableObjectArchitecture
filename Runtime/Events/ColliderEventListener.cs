@@ -6,6 +6,6 @@ namespace ScriptableObjectArchitecture.Events
     public abstract class ColliderEventListener : ScriptableObjectEventListener
     {
         [SerializeField]
-        protected List<Tag> TagsToCheck;
+        protected List<GameObjectTag> TagsToCheck;
     }
 }
