@@ -1,6 +1,6 @@
 {
   "name": "com.mfragger.scriptableobjectarchitecture",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "displayName": "Scriptable Object Architecture",
   "description": "Another take on the Scriptable Object Architecture",
   "unity": "2021.2",
