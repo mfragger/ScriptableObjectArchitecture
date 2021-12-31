@@ -24,6 +24,7 @@ namespace ScriptableObjectArchitecture
                 }
             }
         }
+
         protected override void OnDisable()
         {
             for (int i = 0; i < Tags.Length; i++)

@@ -8,7 +8,7 @@ using UnityEngine;
 public class DefaultReferenceBehaviourTemplate : MonoBehaviour
 {
     //Replace this to your actual Object
-    public IntReference SampleReference;
+    public RefInt SampleReference;
 
     private void Awake()
     {

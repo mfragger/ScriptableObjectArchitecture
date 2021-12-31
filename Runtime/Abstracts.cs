@@ -63,8 +63,8 @@ namespace ScriptableObjectArchitecture
             }
         }
 #endif
-
     }
+
     public abstract class ConstantCollection<T> : ScriptableObject
     {
         [SerializeField]
