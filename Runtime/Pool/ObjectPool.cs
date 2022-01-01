@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
+using UnityEngine.Pool;
 
 namespace ScriptableObjectArchitecture.Pool
 {
@@ -13,6 +15,8 @@ namespace ScriptableObjectArchitecture.Pool
         protected UnityEngine.Pool.ObjectPool<T> pool;
 
         public bool isCollectionCheck = true;
+
+        public int CountInactive => throw new System.NotImplementedException();
 
         protected virtual void OnEnable()
         {
@@ -36,9 +40,27 @@ namespace ScriptableObjectArchitecture.Pool
         {
             this.isCollectionCheck = isCollectionCheck;
         }
+
         public void SetPooledObject(T pooledObject)
         {
             this.pooledObject = pooledObject;
+        }
+        protected void AssignPoolToPooled(ObjectPool<GameObject> pool)
+        {
+            var go = (pooledObject as GameObject);
+            PartOfPool partOfPool;
+            if (go.TryGetComponent(out partOfPool))
+            {
+                AssignPoolToPooled(partOfPool, pool);
+            }
+            else
+            {
+                AssignPoolToPooled(go.AddComponent<PartOfPool>(), pool);
+            }
+        }
+        private void AssignPoolToPooled(PartOfPool partOfPool, ObjectPool<GameObject> pool)
+        {
+            partOfPool.Pool = pool;
         }
     }
 }
