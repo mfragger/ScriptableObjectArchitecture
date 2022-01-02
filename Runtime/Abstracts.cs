@@ -1,5 +1,5 @@
-using JetBrains.Annotations;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -75,7 +75,16 @@ namespace ScriptableObjectArchitecture
         }
         public T[] GetValueRange(int fromIndexInclusive, int toIndexInclusive)
         {
+#if UNITY_2021_2_OR_NEWER
             return Values[fromIndexInclusive..(toIndexInclusive - 1)];
+#else
+            List<T> values = new List<T>();
+            for (int i = fromIndexInclusive; i <= toIndexInclusive; i++)
+            {
+                values.Add(Values[i]);
+            }
+            return values.ToArray();
+#endif
         }
         public T[] GetCollection()
         {
