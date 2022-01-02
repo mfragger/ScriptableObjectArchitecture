@@ -13,6 +13,11 @@ namespace ScriptableObjectArchitecture.Jobs
 
         protected int count = 0;
 
+        protected virtual void OnDisable()
+        {
+            Dispose();
+        }
+
         protected abstract void Dispose();
     }
 

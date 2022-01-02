@@ -5,7 +5,7 @@ using UnityEngine.Pool;
 namespace ScriptableObjectArchitecture.Pool
 {
     public abstract class ObjectPool<T> : ScriptableObject where T : UnityEngine.Object
-    {
+    { 
         public int initCapacity;
 
         public int maxCapacity;

@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.Events;
-
-public abstract class ScriptableObjectEventListener : MonoBehaviour
+namespace ScriptableObjectArchitecture
 {
-    [SerializeField]
-    protected UnityEvent Response;
+    public abstract class ScriptableObjectEventListener : MonoBehaviour
+    {
+        [SerializeField]
+        protected UnityEvent Response;
+    }
 }
