@@ -1,0 +1,24 @@
+{
+    "name": "ScriptableObjectArchitecture.InputSystem",
+    "rootNamespace": "ScriptableObjectArchitecture.InputSystem",
+    "references": [
+        "GUID:75469ad4d38634e559750d17036d5f7c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "USE_NEW_INPUTSYSTEM_1_2_0_OR_NEWER"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.unity.inputsystem",
+            "expression": "1.2.0",
+            "define": "USE_NEW_INPUTSYSTEM_1_2_0_OR_NEWER"
+        }
+    ],
+    "noEngineReferences": false
+}

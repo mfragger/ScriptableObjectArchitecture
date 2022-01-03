@@ -1,0 +1,38 @@
+﻿using System.Linq;
+using UnityEngine;
+
+namespace ScriptableObjectArchitecture.Tags.Components
+{
+    [CreateAssetMenu(menuName = "SO Architecture/Tags/Components/TransformComponent Tag", fileName = "New Tag Name")]
+    public class TransformTag : Tag<Transform>
+    {
+        public void FirstOrDefault_Translate(Vector3 translation)
+        {
+            TaggedObjects.FirstOrDefault().Translate(translation);
+        }
+
+        public void All_Translate(Vector3 translation)
+        {
+            foreach (var transform in TaggedObjects)
+            {
+                transform.Translate(translation);
+            }
+        }
+
+        public int GetFromFirstOrDefault_ChildCount()
+        {
+            return TaggedObjects.FirstOrDefault().childCount;
+        }
+
+        public int[] GetFromAll_ChildCount()
+        {
+            int[] result = new int[TaggedObjects.Count];
+            var index = 0;
+            foreach (var transform in TaggedObjects)
+            {
+                result[index++] = transform.childCount;
+            }
+            return result;
+        }
+    }
+}

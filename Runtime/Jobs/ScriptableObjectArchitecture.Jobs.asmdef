@@ -2,9 +2,7 @@
     "name": "ScriptableObjectArchitecture.Jobs",
     "rootNamespace": "ScriptableObjectArchitecture.Jobs",
     "references": [
-        "GUID:2665a8d13d1b3f18800f46e256720795",
-        "GUID:8a2eafa29b15f444eb6d74f94a930e1d",
-        "GUID:d8b63aba1907145bea998dd612889d6b"
+        "GUID:8a2eafa29b15f444eb6d74f94a930e1d"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -13,25 +11,13 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [
-        "USE_JOBS_0_11_0_preview_6",
-        "USE_BURST_1_6_3",
-        "USE_MATHEMATICS_1_2_5"
+        "USE_JOBS_0_11_0_preview_6_OR_NEWER"
     ],
     "versionDefines": [
         {
             "name": "com.unity.jobs",
             "expression": "0.11.0-preview.6",
-            "define": "USE_JOBS_0_11_0_preview_6"
-        },
-        {
-            "name": "com.unity.burst",
-            "expression": "1.6.3",
-            "define": "USE_BURST_1_6_3"
-        },
-        {
-            "name": "com.unity.mathematics",
-            "expression": "1.2.5",
-            "define": "USE_MATHEMATICS_1_2_5"
+            "define": "USE_JOBS_0_11_0_preview_6_OR_NEWER"
         }
     ],
     "noEngineReferences": false

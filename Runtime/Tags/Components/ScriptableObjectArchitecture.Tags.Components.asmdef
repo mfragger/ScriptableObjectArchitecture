@@ -1,0 +1,23 @@
+{
+    "name": "ScriptableObjectArchitecture.Tags.Components",
+    "rootNamespace": "ScriptableObjectArchitecture.Tags.Components",
+    "references": [
+        "GUID:47400759a67982b45acd49cb17e4919b",
+        "GUID:4307f53044263cf4b835bd812fc161a4"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.cinemachine",
+            "expression": "2.8.4",
+            "define": "USE_CINEMACHINE_2_8_4_OR_NEWER"
+        }
+    ],
+    "noEngineReferences": false
+}

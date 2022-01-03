@@ -1,0 +1,16 @@
+{
+    "name": "ScriptableObjectArchitecture.EventFunctions",
+    "rootNamespace": "ScriptableObjectArchitecture.EventFunctions",
+    "references": [
+        "GUID:47400759a67982b45acd49cb17e4919b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
