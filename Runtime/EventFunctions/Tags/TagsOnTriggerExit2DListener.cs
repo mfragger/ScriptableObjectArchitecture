@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using ScriptableObjectArchitecture.EventFunctions;
+using UnityEngine;
 
-namespace ScriptableObjectArchitecture.EventFunctions
+namespace ScriptableObjectArchitecture.EventFunctions.Tags
 {
     [RequireComponent(typeof(Collider2D))]
-    public class OnCollisionStay2DEventFunctionsListener : EventFunctionsListener
+    public class TagsOnTriggerExit2DListener : TagsEventFunctionsListener
     {
-        private void OnCollisionStay2D(Collision2D other)
+        private void OnTriggerExit2D(Collider2D other)
         {
             for (int i = 0; i < TagsToCheck.Count; i++)
             {

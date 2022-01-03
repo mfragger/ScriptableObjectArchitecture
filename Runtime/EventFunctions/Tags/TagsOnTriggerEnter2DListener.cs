@@ -1,12 +1,13 @@
+using ScriptableObjectArchitecture.EventFunctions;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace ScriptableObjectArchitecture.EventFunctions
+namespace ScriptableObjectArchitecture.Tags.EventFunctions
 {
     [RequireComponent(typeof(Collider2D))]
-    public class OnTriggerEnter2DEventFunctionsListener : EventFunctionsListener
+    public class TagsOnTriggerEnter2DListener : TagsEventFunctionsListener
     {
         private void OnTriggerEnter2D(Collider2D other)
         {
