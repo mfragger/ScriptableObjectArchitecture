@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace ScriptableObjectArchitecture
 {
-    public class GameEventListener : ScriptableObjectEventListener
+    public class GameEventListener : EventListener
     {
         [SerializeField]
         protected GameEvent GameEvent;
@@ -22,6 +22,4 @@ namespace ScriptableObjectArchitecture
             Response.Invoke();
         }
     }
-
-
 }

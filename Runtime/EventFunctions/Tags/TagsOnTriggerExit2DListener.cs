@@ -1,5 +1,4 @@
-﻿using ScriptableObjectArchitecture.EventFunctions;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ScriptableObjectArchitecture.EventFunctions.Tags
 {
@@ -8,13 +7,7 @@ namespace ScriptableObjectArchitecture.EventFunctions.Tags
     {
         private void OnTriggerExit2D(Collider2D other)
         {
-            for (int i = 0; i < TagsToCheck.Count; i++)
-            {
-                if (TagsToCheck[i].TaggedObjects.Contains(other.gameObject))
-                {
-                    Response.Invoke();
-                }
-            }
+            Invoke(other);
         }
     }
 }

@@ -1,0 +1,26 @@
+{
+    "name": "ScriptableObjectArchitecture.SceneManagement",
+    "rootNamespace": "ScriptableObjectArchitecture.SceneManagement",
+    "references": [
+        "GUID:9e24947de15b9834991c9d8411ea37cf",
+        "GUID:47400759a67982b45acd49cb17e4919b",
+        "GUID:84651a3751eca9349aac36a66bba901b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "USE_ADDRESSABLES_1_19_5"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.unity.addressables",
+            "expression": "1.19.5",
+            "define": "USE_ADDRESSABLES_1_19_5"
+        }
+    ],
+    "noEngineReferences": false
+}
