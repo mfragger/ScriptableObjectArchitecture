@@ -4,8 +4,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
-#else
-using UnityEngine.SceneManagement;
 #endif
 
 namespace ScriptableObjectArchitecture.SceneManagement
