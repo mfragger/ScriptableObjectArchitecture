@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.SceneManagement;
 
 namespace ScriptableObjectArchitecture.SceneManagement
 {
@@ -12,10 +8,12 @@ namespace ScriptableObjectArchitecture.SceneManagement
         [SerializeField]
         private LoadSceneSetting loadSceneSettings;
 
-        public void LoadSceneAndMove()
+        public void LoadSceneAndMove(GameObjectTag tagToMove)
         {
-            //loadSceneSettings.LoadSceneAndMove();
+            loadSceneSettings.SetTransformToMove(tagToMove.TaggedObjects.FirstOrDefault().transform);
+            LoadScene();
         }
+
         public void LoadScene()
         {
             loadSceneSettings.LoadScene();

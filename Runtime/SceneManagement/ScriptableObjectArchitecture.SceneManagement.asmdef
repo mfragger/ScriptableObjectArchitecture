@@ -12,9 +12,7 @@
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": [
-        "USE_ADDRESSABLES_1_16_19_OR_NEWER"
-    ],
+    "defineConstraints": [],
     "versionDefines": [
         {
             "name": "com.unity.addressables",

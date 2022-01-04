@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+#if USE_ADDRESSABLES_1_16_19_OR_NEWER
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
+#else
 using UnityEngine.SceneManagement;
+#endif
 
 namespace ScriptableObjectArchitecture.SceneManagement
 {
@@ -12,58 +16,41 @@ namespace ScriptableObjectArchitecture.SceneManagement
         [SerializeField]
         private LoadSceneMode loadSceneMode;
 
-        [SerializeField]
-        private Vector3 worldPosition;
-
+#if USE_ADDRESSABLES_1_16_19_OR_NEWER
         [SerializeField]
         private AssetReference scene;
 
-        private AsyncOperationHandle<SceneInstance> sceneHandleOperation;
-
+        public AsyncOperationHandle<SceneInstance> sceneHandleOperation = default;
+#else
         [SerializeField]
-        private bool isLoaded;
+        private int buildIndex;
 
-        private Transform transform;
+        public AsyncOperation sceneHandleOperation;
+#endif
+        [HideInInspector]
+        public bool isTransformSet;
 
-        private void OnValidate()
-        {
-            isLoaded = false;
-        }
+        [HideInInspector]
+        public Transform transform;
 
         public void SetSceneReference(string sceneName)
         {
             //scene = new AssetReference(sceneName);
         }
 
-        public void SetTransform(Vector3 worldPosition)
-        {
-            this.worldPosition = worldPosition;
-        }
-
-        public void LoadSceneAndMove(Transform transform)
+        public void SetTransformToMove(Transform transform)
         {
             this.transform = transform;
+            isTransformSet = true;
         }
 
         public void LoadScene()
         {
-            if (!isLoaded)
-            {
-                sceneHandleOperation = scene.LoadSceneAsync(loadSceneMode);
-                sceneHandleOperation.Completed += LoadSceneSetting_Completed;
-            }
-        }
-
-        private void LoadSceneSetting_Completed(AsyncOperationHandle<SceneInstance> obj)
-        {
-            if (obj.Status == AsyncOperationStatus.Succeeded)
-            {
-                if (transform != null)
-                {
-                    transform.position = worldPosition;
-                }
-                isLoaded = true;
-            }
+#if USE_ADDRESSABLES_1_16_19_OR_NEWER
+            sceneHandleOperation = scene.LoadSceneAsync(loadSceneMode);
+#else
+            sceneHandleOperation = SceneManager.LoadSceneAsync(buildIndex, loadSceneMode);
+#endif
         }
     }
 }
