@@ -4,5 +4,6 @@ using UnityEngine;
 
 namespace ScriptableObjectArchitecture.Tags.Components
 {
+    [DisallowMultipleComponent]
     public class TransformComponentTagger : ComponentTagger<Transform> { }
 }
