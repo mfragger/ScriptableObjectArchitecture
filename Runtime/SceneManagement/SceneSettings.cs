@@ -9,24 +9,24 @@ using UnityEngine.ResourceManagement.ResourceProviders;
 namespace ScriptableObjectArchitecture.SceneManagement
 {
     [CreateAssetMenu]
-    public class LoadSceneSetting : ScriptableObject
+    public class SceneSettings : ScriptableObject
     {
         [SerializeField]
         private LoadSceneMode loadSceneMode;
 
 #if USE_ADDRESSABLES_1_16_19_OR_NEWER
         [SerializeField]
-        private AssetReference scene;
+        internal AssetReference scene;
 
         public AsyncOperationHandle<SceneInstance> sceneHandleOperation = default;
 #else
         [SerializeField]
-        private int buildIndex;
+        internal int buildIndex;
 
-        public AsyncOperation sceneHandleOperation;
+        public AsyncOperation SceneHandleOperation;
 #endif
         [HideInInspector]
-        public bool isTransformSet;
+        public bool IsTransformSet;
 
         [HideInInspector]
         public Transform transform;
@@ -39,7 +39,7 @@ namespace ScriptableObjectArchitecture.SceneManagement
         public void SetTransformToMove(Transform transform)
         {
             this.transform = transform;
-            isTransformSet = true;
+            IsTransformSet = true;
         }
 
         public void LoadScene()
@@ -47,7 +47,7 @@ namespace ScriptableObjectArchitecture.SceneManagement
 #if USE_ADDRESSABLES_1_16_19_OR_NEWER
             sceneHandleOperation = scene.LoadSceneAsync(loadSceneMode);
 #else
-            sceneHandleOperation = SceneManager.LoadSceneAsync(buildIndex, loadSceneMode);
+            SceneHandleOperation = SceneManager.LoadSceneAsync(buildIndex, loadSceneMode);
 #endif
         }
     }

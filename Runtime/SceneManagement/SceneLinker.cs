@@ -11,7 +11,7 @@ namespace ScriptableObjectArchitecture.SceneManagement
     public class SceneLinker : MonoBehaviour
     {
         [SerializeField]
-        private LoadSceneSetting loadSceneSetting;
+        private SceneSettings loadSceneSetting;
 
         [SerializeField]
         private Transform spawnPoint;
@@ -24,9 +24,9 @@ namespace ScriptableObjectArchitecture.SceneManagement
                 loadSceneSetting.sceneHandleOperation.Completed += SceneHandleOperation_Completed;
             }
 #else
-            if (loadSceneSetting.sceneHandleOperation != null)
+            if (loadSceneSetting.SceneHandleOperation != null)
             {
-                loadSceneSetting.sceneHandleOperation.completed += SceneHandleOperation_completed;
+                loadSceneSetting.SceneHandleOperation.completed += SceneHandleOperation_completed;
             }
 #endif
         }
@@ -45,7 +45,7 @@ namespace ScriptableObjectArchitecture.SceneManagement
 
         private void Move()
         {
-            if (loadSceneSetting.isTransformSet)
+            if (loadSceneSetting.IsTransformSet)
             {
                 loadSceneSetting.transform.position = spawnPoint.position;
                 return;
