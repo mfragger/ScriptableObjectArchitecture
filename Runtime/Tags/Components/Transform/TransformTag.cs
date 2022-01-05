@@ -47,5 +47,24 @@ namespace ScriptableObjectArchitecture.Tags.Components
                 transform.position = position;
             }
         }
+
+        public void SetFromFirstOrDefault_SetPosition(Transform transform)
+        {
+            if (transform == null)
+                return;
+
+            TaggedObjects.FirstOrDefault().position = transform.position;
+        }
+
+        public void SetFromAll_SetPosition(Transform transform)
+        {
+            if (transform == null)
+                return;
+
+            foreach (var taggedTransform in TaggedObjects)
+            {
+                taggedTransform.position = transform.position;
+            }
+        }
     }
 }
