@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
 
 namespace ScriptableObjectArchitecture
 {
@@ -8,6 +6,7 @@ namespace ScriptableObjectArchitecture
     {
         [SerializeField]
         protected GameEvent GameEvent;
+
         private void OnEnable()
         {
             GameEvent.Register(this);

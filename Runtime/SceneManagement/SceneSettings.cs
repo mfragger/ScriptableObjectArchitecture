@@ -8,7 +8,7 @@ using UnityEngine.ResourceManagement.ResourceProviders;
 
 namespace ScriptableObjectArchitecture.SceneManagement
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = "SO Architecture/Scene Settings", fileName = "New SceneSettings", order = 51)]
     public class SceneSettings : ScriptableObject
     {
         [SerializeField]
@@ -18,30 +18,13 @@ namespace ScriptableObjectArchitecture.SceneManagement
         [SerializeField]
         internal AssetReference scene;
 
-        public AsyncOperationHandle<SceneInstance> sceneHandleOperation = default;
+        public AsyncOperationHandle<SceneInstance> sceneHandleOperation;
 #else
         [SerializeField]
         internal int buildIndex;
 
         public AsyncOperation SceneHandleOperation;
 #endif
-        [HideInInspector]
-        public bool IsTransformSet;
-
-        [HideInInspector]
-        public Transform transform;
-
-        public void SetSceneReference(string sceneName)
-        {
-            //scene = new AssetReference(sceneName);
-        }
-
-        public void SetTransformToMove(Transform transform)
-        {
-            this.transform = transform;
-            IsTransformSet = true;
-        }
-
         public void LoadScene()
         {
 #if USE_ADDRESSABLES_1_16_19_OR_NEWER
