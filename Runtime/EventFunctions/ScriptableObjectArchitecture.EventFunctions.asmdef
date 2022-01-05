@@ -3,7 +3,8 @@
     "rootNamespace": "ScriptableObjectArchitecture.EventFunctions",
     "references": [
         "GUID:47400759a67982b45acd49cb17e4919b",
-        "GUID:e9104afda50741d41a70a464ffeb29c1"
+        "GUID:e9104afda50741d41a70a464ffeb29c1",
+        "GUID:e2a05d96d049a2f4687ed8d0c0f81ee8"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

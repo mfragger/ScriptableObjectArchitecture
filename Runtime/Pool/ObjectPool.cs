@@ -4,8 +4,8 @@ using UnityEngine.Pool;
 
 namespace ScriptableObjectArchitecture.Pool
 {
-    public abstract class ObjectPool<T> : ScriptableObject where T : UnityEngine.Object
-    { 
+    public abstract class ObjectPool<T> : ScriptableObject where T : Object
+    {
         public int initCapacity;
 
         public int maxCapacity;
@@ -15,8 +15,6 @@ namespace ScriptableObjectArchitecture.Pool
         protected UnityEngine.Pool.ObjectPool<T> pool;
 
         public bool isCollectionCheck = true;
-
-        public int CountInactive => throw new System.NotImplementedException();
 
         protected virtual void OnEnable()
         {
@@ -45,11 +43,11 @@ namespace ScriptableObjectArchitecture.Pool
         {
             this.pooledObject = pooledObject;
         }
+
         protected void AssignPoolToPooled(ObjectPool<GameObject> pool)
         {
             var go = (pooledObject as GameObject);
-            PartOfPool partOfPool;
-            if (go.TryGetComponent(out partOfPool))
+            if (go.TryGetComponent(out PartOfPool partOfPool))
             {
                 AssignPoolToPooled(partOfPool, pool);
             }

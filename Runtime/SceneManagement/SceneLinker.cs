@@ -60,7 +60,6 @@ namespace ScriptableObjectArchitecture.SceneManagement
         private void OnValidate()
         {
             Set();
-            EditorUtility.SetDirty(loadSceneSetting);
         }
 
         private void Set()
@@ -68,6 +67,7 @@ namespace ScriptableObjectArchitecture.SceneManagement
             if (loadSceneSetting != null)
             {
                 loadSceneSetting.SetSceneReference(gameObject.scene.name);
+                EditorUtility.SetDirty(loadSceneSetting);
             }
         }
     }
