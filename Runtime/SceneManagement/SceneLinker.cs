@@ -18,7 +18,7 @@ namespace ScriptableObjectArchitecture.SceneManagement
 
         [Header("When Scene Loaded Completely")]
         [SerializeField]
-        private GameEvent gameEvent;
+        protected GameEvent gameEvent;
 
         private void Awake()
         {
