@@ -34,5 +34,18 @@ namespace ScriptableObjectArchitecture.Tags.Components
             }
             return result;
         }
+
+        public void SetFromFirstOrDefault_SetPosition(Vector3 position)
+        {
+            TaggedObjects.FirstOrDefault().position = position;
+        }
+
+        public void SetFromAll_SetPosition(Vector3 position)
+        {
+            foreach (var transform in TaggedObjects)
+            {
+                transform.position = position;
+            }
+        }
     }
 }

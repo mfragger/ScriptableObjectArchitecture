@@ -16,6 +16,10 @@ namespace ScriptableObjectArchitecture.SceneManagement
         [SerializeField]
         private Transform spawnPoint;
 
+        [Header("When Scene Loaded Completely")]
+        [SerializeField]
+        private GameEvent gameEvent;
+
         private void Awake()
         {
 #if USE_ADDRESSABLES_1_16_19_OR_NEWER
@@ -45,6 +49,7 @@ namespace ScriptableObjectArchitecture.SceneManagement
 
         private void Move()
         {
+            gameEvent.InvokeEvent();
             if (loadSceneSetting.IsTransformSet)
             {
                 loadSceneSetting.transform.position = spawnPoint.position;
@@ -60,7 +65,10 @@ namespace ScriptableObjectArchitecture.SceneManagement
 
         private void Set()
         {
-            loadSceneSetting.SetSceneReference(gameObject.scene.name);
+            if (loadSceneSetting != null)
+            {
+                loadSceneSetting.SetSceneReference(gameObject.scene.name);
+            }
         }
     }
 }
