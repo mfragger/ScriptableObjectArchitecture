@@ -34,9 +34,9 @@ namespace ScriptableObjectArchitecture.SceneManagement
 #else
         public void UnloadScene()
         {
-            if (SceneManager.GetSceneByBuildIndex(sceneSettings.buildIndex).isLoaded)
+            if (SceneManager.GetSceneByPath(sceneSettings.sceneReference).isLoaded)
             {
-                SceneManager.UnloadSceneAsync(sceneSettings.buildIndex);
+                SceneManager.UnloadSceneAsync(sceneSettings.sceneReference);
             }
         }
 #endif

@@ -2,7 +2,8 @@
     "name": "ScriptableObjectArchitecture.Editor",
     "rootNamespace": "ScriptableObjectArchitecture.Editor",
     "references": [
-        "GUID:47400759a67982b45acd49cb17e4919b"
+        "GUID:47400759a67982b45acd49cb17e4919b",
+        "GUID:e9104afda50741d41a70a464ffeb29c1"
     ],
     "includePlatforms": [
         "Editor"

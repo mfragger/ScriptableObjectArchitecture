@@ -45,5 +45,22 @@ namespace ScriptableObjectArchitecture.SceneManagement
         {
             Response.Invoke();
         }
+
+        private void OnDisable()
+        {
+            if (loadSceneSetting == null)
+                return;
+#if USE_ADDRESSABLES_1_16_19_OR_NEWER
+            if (loadSceneSetting.sceneHandleOperation.IsValid())
+            {
+                loadSceneSetting.sceneHandleOperation.Completed -= SceneHandleOperation_Completed;
+            }
+#else
+            if (loadSceneSetting.SceneHandleOperation != null)
+            {
+                loadSceneSetting.SceneHandleOperation.completed -= SceneHandleOperation_Completed;
+            }
+#endif
+        }
     }
 }

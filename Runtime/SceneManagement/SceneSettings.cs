@@ -21,16 +21,21 @@ namespace ScriptableObjectArchitecture.SceneManagement
         public AsyncOperationHandle<SceneInstance> sceneHandleOperation;
 #else
         [SerializeField]
-        internal int buildIndex;
+        internal SceneReference sceneReference;
 
         public AsyncOperation SceneHandleOperation;
 #endif
+
+        private void OnEnable()
+        {
+        }
+
         public void LoadScene()
         {
 #if USE_ADDRESSABLES_1_16_19_OR_NEWER
             sceneHandleOperation = scene.LoadSceneAsync(loadSceneMode);
 #else
-            SceneHandleOperation = SceneManager.LoadSceneAsync(buildIndex, loadSceneMode);
+            SceneHandleOperation = SceneManager.LoadSceneAsync(sceneReference, loadSceneMode);
 #endif
         }
     }
