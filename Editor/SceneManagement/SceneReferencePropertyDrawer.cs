@@ -45,7 +45,6 @@ namespace ScriptableObjectArchitecture.Editor.SceneManagement
 
         private static readonly RectOffset boxPadding = EditorStyles.helpBox.padding;
 
-
         // Made these two const btw
         private const float PAD_SIZE = 2f;
         private const float FOOTER_HEIGHT = 10f;

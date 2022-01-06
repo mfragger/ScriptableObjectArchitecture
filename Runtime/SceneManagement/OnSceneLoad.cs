@@ -18,9 +18,9 @@ namespace ScriptableObjectArchitecture.SceneManagement
             if (loadSceneSetting == null)
                 return;
 #if USE_ADDRESSABLES_1_16_19_OR_NEWER
-            if (loadSceneSetting.sceneHandleOperation.IsValid())
+            if (loadSceneSetting.SceneHandleOperation.IsValid())
             {
-                loadSceneSetting.sceneHandleOperation.Completed += SceneHandleOperation_Completed;
+                loadSceneSetting.SceneHandleOperation.Completed += SceneHandleOperation_Completed;
             }
 #else
             if (loadSceneSetting.SceneHandleOperation != null)
@@ -51,9 +51,9 @@ namespace ScriptableObjectArchitecture.SceneManagement
             if (loadSceneSetting == null)
                 return;
 #if USE_ADDRESSABLES_1_16_19_OR_NEWER
-            if (loadSceneSetting.sceneHandleOperation.IsValid())
+            if (loadSceneSetting.SceneHandleOperation.IsValid())
             {
-                loadSceneSetting.sceneHandleOperation.Completed -= SceneHandleOperation_Completed;
+                loadSceneSetting.SceneHandleOperation.Completed -= SceneHandleOperation_Completed;
             }
 #else
             if (loadSceneSetting.SceneHandleOperation != null)

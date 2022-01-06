@@ -11,34 +11,9 @@ namespace ScriptableObjectArchitecture.SceneManagement
         [SerializeField]
         private SceneSettings sceneSettings;
 
-#if USE_ADDRESSABLES_1_16_19_OR_NEWER
         public void UnloadScene()
         {
-            Addressables.LoadResourceLocationsAsync(sceneSettings.scene).Completed += (loc) =>
-            {
-                var sceneId = loc.Result[0].InternalId;
-                var isSceneLoaded = SceneManager.GetSceneByPath(sceneId).isLoaded;
-                if (isSceneLoaded)
-                {
-                    if (sceneSettings.sceneHandleOperation.Equals(default))
-                    {
-                        SceneManager.UnloadSceneAsync(sceneId);
-                    }
-                    else
-                    {
-                        Addressables.UnloadSceneAsync(sceneSettings.sceneHandleOperation);
-                    }
-                }
-            };
+            sceneSettings.UnloadScene();
         }
-#else
-        public void UnloadScene()
-        {
-            if (SceneManager.GetSceneByPath(sceneSettings.sceneReference).isLoaded)
-            {
-                SceneManager.UnloadSceneAsync(sceneSettings.sceneReference);
-            }
-        }
-#endif
     }
 }
