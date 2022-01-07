@@ -6,15 +6,21 @@ using UnityEngine.ResourceManagement.ResourceProviders;
 #else
 using UnityEngine.SceneManagement;
 #endif
+#if ODIN_INSPECTOR || ODIN_INSPECTOR_3
+using Sirenix.OdinInspector;
+#endif
 
 namespace ScriptableObjectArchitecture.SceneManagement
 {
     public abstract class OnSceneLoad<T0> : EventListener<T0>
     {
+#if ODIN_INSPECTOR || ODIN_INSPECTOR_3
+        [InlineEditor]
+#endif
         [SerializeField]
         internal SceneSettings loadSceneSetting;
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
 #if USE_ADDRESSABLES_1_16_19_OR_NEWER
             if (loadSceneSetting.SceneHandleOperation.IsValid())
@@ -40,7 +46,7 @@ namespace ScriptableObjectArchitecture.SceneManagement
             Respond();
         }
 #endif
-        private void Respond()
+        protected virtual void Respond()
         {
             for (int i = 0; i < Responses.Count; i++)
             {

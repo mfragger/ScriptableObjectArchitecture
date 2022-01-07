@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using System.Runtime.InteropServices.ComTypes;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 #if USE_ADDRESSABLES_1_16_19_OR_NEWER
@@ -27,14 +25,13 @@ namespace ScriptableObjectArchitecture.SceneManagement
         internal SceneReference scene;
 
         public AsyncOperation SceneHandleOperation;
-        
-        [SerializeField] 
+
+        [SerializeField]
         private LoadSceneParameters loadSceneParameters;
 #endif
 
         [Header("Additional Settings")]
         [SerializeField] private bool activateOnLoad = true;
-
         [SerializeField] private int priority = 100;
         [SerializeField] private NavMeshData navMeshData;
         private NavMeshDataInstance navMeshDataInstance;
@@ -45,6 +42,8 @@ namespace ScriptableObjectArchitecture.SceneManagement
             SceneHandleOperation = scene.LoadSceneAsync(loadSceneMode, activateOnLoad, priority);
 #else
             SceneHandleOperation = SceneManager.LoadSceneAsync(scene, loadSceneParameters);
+            SceneHandleOperation.allowSceneActivation = activateOnLoad;
+            SceneHandleOperation.priority = priority;
 #endif
         }
 
