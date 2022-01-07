@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace ScriptableObjectArchitecture.Tags.Components
 {
-    public abstract class ComponentTagger<T> : ObjectTagger<T> where T : Component
+    public abstract class ComponentTagger<T> : ObjectTagger<T>
     {
         [SerializeField]
-        private T Component;
+        protected T Component;
 
         private void OnValidate()
         {
