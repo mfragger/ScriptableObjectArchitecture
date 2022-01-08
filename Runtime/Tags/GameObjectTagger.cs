@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
 namespace ScriptableObjectArchitecture
 {
     [DisallowMultipleComponent]
-    [ExecuteAlways]
     public class GameObjectTagger : ObjectTagger<GameObject>
     {
         protected override void OnEnable()
