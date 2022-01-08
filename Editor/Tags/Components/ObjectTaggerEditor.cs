@@ -54,7 +54,7 @@ namespace ScriptableObjectArchitecture.Editor
 
         private void DrawInspector()
         {
-            if (GUILayout.Button($"Craete New {typeof(T1).Name}"))
+            if (GUILayout.Button($"Create New {typeof(T1).Name}"))
             {
                 CreateNewTag();
             }
@@ -63,7 +63,14 @@ namespace ScriptableObjectArchitecture.Editor
 
         private void CreateNewTag()
         {
+            var asset = CreateInstance<T1>();
+            string name = AssetDatabase.GenerateUniqueAssetPath($"Assets/S.Tests/New {typeof(T1).Name}.asset");
+            AssetDatabase.CreateAsset(asset, name);
+            AssetDatabase.SaveAssets();
 
+            EditorUtility.FocusProjectWindow();
+            Selection.activeObject = asset;
+            //ProjectWindowUtil.StartNameEditingIfProjectWindowExists(asset.GetInstanceID(),);
         }
     }
 }

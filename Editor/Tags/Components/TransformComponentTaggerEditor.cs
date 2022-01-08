@@ -4,6 +4,6 @@ using UnityEngine;
 
 namespace ScriptableObjectArchitecture.Editor
 {
-    [CustomEditor(typeof(TransformComponentTagger), true)]
+    [CustomEditor(typeof(TransformTagger), true)]
     public class TransformComponentTaggerEditor : ObjectTaggerEditor<Transform, TransformTag> { }
 }

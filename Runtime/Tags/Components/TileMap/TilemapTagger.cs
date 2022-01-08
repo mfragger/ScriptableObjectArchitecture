@@ -5,5 +5,5 @@ namespace ScriptableObjectArchitecture.Tags.Components
 {
     [RequireComponent(typeof(Tilemap))]
     [DisallowMultipleComponent]
-    public class TileMapComponentTagger : ComponentTagger<Tilemap> { }
+    public class TilemapTagger : ComponentTagger<Tilemap> { }
 }

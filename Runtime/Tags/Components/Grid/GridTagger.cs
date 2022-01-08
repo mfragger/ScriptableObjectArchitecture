@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ScriptableObjectArchitecture.Tags.Components
 {
-    [RequireComponent(typeof(Camera))]
+    [RequireComponent(typeof(Grid))]
     [DisallowMultipleComponent]
-    public class CameraComponentTagger : ComponentTagger<Camera> { }
+    public class GridTagger : ComponentTagger<Grid> { }
 }
