@@ -1,4 +1,6 @@
-﻿//MIT License
+﻿#if !USE_ADDRESSABLES_1_16_19_OR_NEWER
+
+//MIT License
 
 //Copyright (c) 2017 JohannesMP
 //Copyright(c) 2019 S.Tarık Çetin
@@ -21,7 +23,6 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 
-#if UNITY_EDITOR
 using ScriptableObjectArchitecture.SceneManagement;
 using System.Linq;
 using System.Runtime.CompilerServices;

@@ -1,9 +1,6 @@
-using System;
-using System.CodeDom.Compiler;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace ScriptableObjectArchitecture.Editor
 {
@@ -64,13 +61,14 @@ namespace ScriptableObjectArchitecture.Editor
         private void CreateNewTag()
         {
             var asset = CreateInstance<T1>();
-            string name = AssetDatabase.GenerateUniqueAssetPath($"Assets/S.Tests/New {typeof(T1).Name}.asset");
+            string path = ProjectSettings.GetOrCreateSettings().pathForScriptableObject != string.Empty ? ProjectSettings.GetOrCreateSettings().pathForScriptableObject : "Assets";
+            path = path[path.Length - 1] == '/' ? path : $"{path}/";
+            string name = AssetDatabase.GenerateUniqueAssetPath($"{path}New {typeof(T1).Name}.asset");
             AssetDatabase.CreateAsset(asset, name);
             AssetDatabase.SaveAssets();
 
             EditorUtility.FocusProjectWindow();
             Selection.activeObject = asset;
-            //ProjectWindowUtil.StartNameEditingIfProjectWindowExists(asset.GetInstanceID(),);
         }
     }
 }

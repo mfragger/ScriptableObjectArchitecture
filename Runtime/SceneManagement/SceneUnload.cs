@@ -1,25 +1,31 @@
-using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine;
 #if USE_ADDRESSABLES_1_16_19_OR_NEWER
 using UnityEngine.AddressableAssets;
-#endif
-#if ODIN_INSPECTOR || ODIN_INSPECTOR_3
-using Sirenix.OdinInspector;
 #endif
 
 namespace ScriptableObjectArchitecture.SceneManagement
 {
     public class SceneUnload : MonoBehaviour
     {
-#if ODIN_INSPECTOR || ODIN_INSPECTOR_3
-        [InlineEditor]
-#endif
+#if USE_ADDRESSABLES_1_16_19_OR_NEWER
         [SerializeField]
-        private SceneSettings sceneSettings;
+        private AssetReference[] scene;
+#endif
 
         public void UnloadScene()
         {
-            sceneSettings.UnloadScene();
+#if USE_ADDRESSABLES_1_16_19_OR_NEWER
+            for (int i = 0; i < scene.Length; ++i)
+            {
+                if (SceneHandler.operationHandlers.ContainsKey(scene[i].AssetGUID))
+                {
+                    Addressables.UnloadSceneAsync(SceneHandler.operationHandlers[scene[i].AssetGUID]);
+                    Addressables.Release(SceneHandler.operationHandlers[scene[i].AssetGUID]);
+                    SceneHandler.operationHandlers.Remove(scene[i].AssetGUID);
+                }
+            }
+#endif
         }
     }
 }

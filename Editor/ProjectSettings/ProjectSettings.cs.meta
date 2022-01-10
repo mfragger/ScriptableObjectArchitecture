@@ -1,11 +1,9 @@
 fileFormatVersion: 2
-guid: 2eece9228d589304e8b7c12565c590e1
+guid: 09ef92f963139c04286288221c4f1040
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - sceneHandler: {fileID: 11400000, guid: 62c49fbe9253cc24988cdde5c662ffea, type: 2}
-  - navMeshData: {instanceID: 0}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

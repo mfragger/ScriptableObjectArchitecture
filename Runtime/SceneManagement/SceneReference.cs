@@ -1,4 +1,5 @@
-﻿//MIT License
+﻿#if !USE_ADDRESSABLES_1_16_19_OR_NEWER
+//MIT License
 
 //Copyright (c) 2017 JohannesMP
 //Copyright(c) 2019 S.Tarık Çetin
@@ -172,3 +173,4 @@ namespace ScriptableObjectArchitecture.SceneManagement
 #endif
     }
 }
+#endif

@@ -21,6 +21,11 @@
             "name": "com.unity.cinemachine",
             "expression": "2.8.4",
             "define": "USE_CINEMACHINE_2_8_4_OR_NEWER"
+        },
+        {
+            "name": "com.unity.addressables",
+            "expression": "1.16.19",
+            "define": "USE_ADDRESSABLES_1_16_19_OR_NEWER"
         }
     ],
     "noEngineReferences": false

@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 #if USE_ADDRESSABLES_1_16_19_OR_NEWER
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
+#endif
+#if USE_NAUGHTYATTRIBUTES_2_1_1_OR_NEWER
+using NaughtyAttributes;
 #endif
 
 namespace ScriptableObjectArchitecture.SceneManagement
@@ -33,13 +35,20 @@ namespace ScriptableObjectArchitecture.SceneManagement
         [Header("Additional Settings")]
         [SerializeField] private bool activateOnLoad = true;
         [SerializeField] private int priority = 100;
-        [SerializeField] private NavMeshData navMeshData;
-        private NavMeshDataInstance navMeshDataInstance;
+        [SerializeField] private bool makeActive = true;
 
         public void LoadScene()
         {
 #if USE_ADDRESSABLES_1_16_19_OR_NEWER
-            SceneHandleOperation = scene.LoadSceneAsync(loadSceneMode, activateOnLoad, priority);
+            if (!SceneHandler.operationHandlers.ContainsKey(scene.AssetGUID))
+            {
+                SceneHandleOperation = scene.LoadSceneAsync(loadSceneMode, activateOnLoad, priority);
+                if (makeActive)
+                {
+                    SceneHandleOperation.Completed += SceneHandleOperation_Completed;
+                }
+                SceneHandler.operationHandlers.Add(scene.AssetGUID, SceneHandleOperation);
+            }
 #else
             SceneHandleOperation = SceneManager.LoadSceneAsync(scene, loadSceneParameters);
             SceneHandleOperation.allowSceneActivation = activateOnLoad;
@@ -47,30 +56,11 @@ namespace ScriptableObjectArchitecture.SceneManagement
 #endif
         }
 
-        public void UnloadScene()
-        {
 #if USE_ADDRESSABLES_1_16_19_OR_NEWER
-            SceneHandleOperation = scene.UnLoadScene();
-#else
-            SceneHandleOperation = SceneManager.UnloadSceneAsync(scene);
+        private void SceneHandleOperation_Completed(AsyncOperationHandle<SceneInstance> obj)
+        {
+            SceneManager.SetActiveScene(obj.Result.Scene);
+        }
 #endif
-        }
-
-        public void LoadNavMesh()
-        {
-            navMeshDataInstance = NavMesh.AddNavMeshData(navMeshData);
-        }
-
-        public void UnloadNavMesh()
-        {
-            if (navMeshDataInstance.Equals(default))
-                UnloadAllNavMesh();
-            NavMesh.RemoveNavMeshData(navMeshDataInstance);
-        }
-
-        public void UnloadAllNavMesh()
-        {
-            NavMesh.RemoveAllNavMeshData();
-        }
     }
 }
