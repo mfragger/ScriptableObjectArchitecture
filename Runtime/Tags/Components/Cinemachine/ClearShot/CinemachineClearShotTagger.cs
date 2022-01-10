@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace ScriptableObjectArchitecture.Tags.Components.Cinemachine
 {
-    [RequireComponent(typeof(CinemachineVirtualCameraBase))]
+    [RequireComponent(typeof(CinemachineClearShot))]
     [DisallowMultipleComponent]
-    public class CinemachineVirtualCameraBaseTagger : ComponentTagger<CinemachineVirtualCameraBase> { }
+    public class CinemachineClearShotTagger : ComponentTagger<CinemachineClearShot> { }
 }
 #endif
