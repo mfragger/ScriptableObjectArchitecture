@@ -23,14 +23,17 @@ namespace ScriptableObjectArchitecture.SceneManagement
             {
                 if (SceneHandler.operationHandlers.ContainsKey(scene[i].AssetGUID))
                 {
+#if USE_ADDRESSABLES_1_19_13_OR_NEWER
                     Addressables.UnloadSceneAsync(SceneHandler.operationHandlers[scene[i].AssetGUID], unloadSceneOptions);
+#else
+                    Addressables.UnloadSceneAsync(SceneHandler.operationHandlers[scene[i].AssetGUID]);
+#endif
                     Addressables.Release(SceneHandler.operationHandlers[scene[i].AssetGUID]);
                     SceneHandler.operationHandlers.Remove(scene[i].AssetGUID);
                 }
 #if UNITY_EDITOR
                 else
                 {
-                    SceneManager.UnloadSceneAsync(scene[i].editorAsset.name, unloadSceneOptions);
                 }
 #endif
             }

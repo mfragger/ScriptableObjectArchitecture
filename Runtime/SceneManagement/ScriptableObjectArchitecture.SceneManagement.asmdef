@@ -21,6 +21,11 @@
             "define": "USE_ADDRESSABLES_1_16_19_OR_NEWER"
         },
         {
+            "name": "com.unity.addressables",
+            "expression": "1.19.13",
+            "define": "USE_ADDRESSABLES_1_19_13_OR_NEWER"
+        },
+        {
             "name": "com.dbrizov.naughtyattributes",
             "expression": "2.1.1",
             "define": "USE_NAUGHTYATTRIBUTES_2_1_1_OR_NEWER"
