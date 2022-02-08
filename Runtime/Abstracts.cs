@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -12,22 +11,35 @@ namespace ScriptableObjectArchitecture
         public T Value;
 
 #if UNITY_EDITOR
-        public bool ResetAfterPlayMode;
+        [SerializeField]
+        private bool ResetAfterPlayMode;
 
-        [NonSerialized]
-        public Variable<T> CopyObject;
-
-        public void ReInitCache(PlayModeStateChange playModeStateChange)
+        [HideInInspector]
+        public T copyValue;
+#endif
+        protected virtual void OnEnable()
         {
-            if (PlayModeStateChange.ExitingPlayMode == playModeStateChange)
+#if UNITY_EDITOR
+            ResetAfterPlaymode();
+#endif
+        }
+
+#if UNITY_EDITOR
+        private void ResetAfterPlaymode()
+        {
+            if (ResetAfterPlayMode)
             {
-                if (CopyObject != null)
-                {
-                    Value = CopyObject.Value;
-                    DestroyImmediate(CopyObject);
-                    CopyObject = null;
-                }
-                EditorApplication.playModeStateChanged -= ReInitCache;
+                copyValue = Value;
+                EditorApplication.playModeStateChanged += EditorApplication_playModeStateChanged;
+            }
+        }
+
+        private void EditorApplication_playModeStateChanged(PlayModeStateChange obj)
+        {
+            if (ResetAfterPlayMode && obj == PlayModeStateChange.EnteredEditMode)
+            {
+                Value = copyValue;
+                EditorApplication.playModeStateChanged -= EditorApplication_playModeStateChanged;
             }
         }
 #endif
@@ -39,6 +51,40 @@ namespace ScriptableObjectArchitecture
         private T value;
 
         public T Value => value;
+
+#if UNITY_EDITOR
+        [SerializeField]
+        private bool ResetAfterPlayMode;
+
+        [HideInInspector]
+        public T copyValue;
+#endif
+        protected virtual void OnEnable()
+        {
+#if UNITY_EDITOR
+            ResetAfterPlaymode();
+#endif
+        }
+
+#if UNITY_EDITOR
+        private void ResetAfterPlaymode()
+        {
+            if (ResetAfterPlayMode)
+            {
+                copyValue = Value;
+                EditorApplication.playModeStateChanged += EditorApplication_playModeStateChanged;
+            }
+        }
+
+        private void EditorApplication_playModeStateChanged(PlayModeStateChange obj)
+        {
+            if (ResetAfterPlayMode && obj == PlayModeStateChange.EnteredEditMode)
+            {
+                value = copyValue;
+                EditorApplication.playModeStateChanged -= EditorApplication_playModeStateChanged;
+            }
+        }
+#endif
     }
 
     //Collections
@@ -47,19 +93,35 @@ namespace ScriptableObjectArchitecture
         public T[] Values;
 
 #if UNITY_EDITOR
-        public bool ResetAfterPlayMode;
+        [SerializeField]
+        private bool ResetAfterPlayMode;
 
-        [NonSerialized]
-        public Collection<T> CopyObject;
-
-        public void ReInitCache(PlayModeStateChange playModeStateChange)
+        [HideInInspector]
+        public T[] copyValues;
+#endif
+        protected virtual void OnEnable()
         {
-            if (PlayModeStateChange.ExitingPlayMode == playModeStateChange)
+#if UNITY_EDITOR
+            ResetAfterPlaymode();
+#endif
+        }
+
+#if UNITY_EDITOR
+        private void ResetAfterPlaymode()
+        {
+            if (ResetAfterPlayMode)
             {
-                Values = CopyObject.Values;
-                DestroyImmediate(CopyObject);
-                CopyObject = null;
-                EditorApplication.playModeStateChanged -= ReInitCache;
+                copyValues = Values;
+                EditorApplication.playModeStateChanged += EditorApplication_playModeStateChanged;
+            }
+        }
+
+        private void EditorApplication_playModeStateChanged(PlayModeStateChange obj)
+        {
+            if (ResetAfterPlayMode && obj == PlayModeStateChange.EnteredEditMode)
+            {
+                Values = copyValues;
+                EditorApplication.playModeStateChanged -= EditorApplication_playModeStateChanged;
             }
         }
 #endif
@@ -69,6 +131,40 @@ namespace ScriptableObjectArchitecture
     {
         [SerializeField]
         private T[] Values;
+
+#if UNITY_EDITOR
+        [SerializeField]
+        private bool ResetAfterPlayMode;
+
+        [HideInInspector]
+        public T[] copyValues;
+#endif
+        protected virtual void OnEnable()
+        {
+#if UNITY_EDITOR
+            ResetAfterPlaymode();
+#endif
+        }
+
+#if UNITY_EDITOR
+        private void ResetAfterPlaymode()
+        {
+            if (ResetAfterPlayMode)
+            {
+                copyValues = Values;
+                EditorApplication.playModeStateChanged += EditorApplication_playModeStateChanged;
+            }
+        }
+
+        private void EditorApplication_playModeStateChanged(PlayModeStateChange obj)
+        {
+            if (ResetAfterPlayMode && obj == PlayModeStateChange.EnteredEditMode)
+            {
+                Values = copyValues;
+                EditorApplication.playModeStateChanged -= EditorApplication_playModeStateChanged;
+            }
+        }
+#endif
         public T GetValue(int i)
         {
             return Values[i];
@@ -86,16 +182,16 @@ namespace ScriptableObjectArchitecture
             return values.ToArray();
 #endif
         }
-        public T[] GetCollection()
-        {
-            return Values.ToArray();
-        }
+
+        public T[] GetCollection => Values;
         public T Find(T item)
         {
             for (int i = 0; i < Values.Length; i++)
             {
                 if (Values[i].Equals(item))
+                {
                     return Values[i];
+                }
             }
             return default;
         }
