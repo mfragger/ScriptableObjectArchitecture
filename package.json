@@ -1,6 +1,6 @@
 {
   "name": "com.mfragger.scriptableobjectarchitecture",
-  "version": "0.7.12-alpha",
+  "version": "0.8.0-alpha",
   "displayName": "Scriptable Object Architecture",
   "description": "[Experimental] Another take on the Scriptable Object Architecture",
   "author": {
