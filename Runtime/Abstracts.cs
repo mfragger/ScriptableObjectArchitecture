@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -6,19 +8,42 @@ using UnityEngine;
 namespace ScriptableObjectArchitecture
 {
     //Variables
-    public abstract class Variable<T> : ScriptableObject
+    public abstract class Variable<T0, T1> : ScriptableObject where T1 : Variable<T0, T1>
     {
-        public T Value;
+        public interface IValueChange
+        {
+            void OnValueChanged(T1 variableObject, T0 newValue);
+        }
+
+        protected readonly List<IValueChange> OnChangeCallbacks = new();
+
+        public T0 Value
+        {
+            get => value;
+            set
+            {
+                this.value = value;
+                for (int i = 0; i < OnChangeCallbacks.Count; i++)
+                {
+                    OnChangeCallbacks[i].OnValueChanged((T1)this, value);
+                }
+            }
+        }
+
+        [SerializeField]
+        protected T0 value;
 
 #if UNITY_EDITOR
         [SerializeField]
         private bool ResetAfterPlayMode;
 
+        [SerializeField]
         [HideInInspector]
-        public T copyValue;
+        private T0 copyValue;
 #endif
         protected virtual void OnEnable()
         {
+
 #if UNITY_EDITOR
             ResetAfterPlaymode();
 #endif
@@ -44,8 +69,17 @@ namespace ScriptableObjectArchitecture
         }
 #endif
 
+        public void AddToCallback(IValueChange changeValue)
+        {
+            OnChangeCallbacks.Add(changeValue);
+        }
+
+        public void RemoveFromCallback(IValueChange changeValue)
+        {
+            OnChangeCallbacks.Remove(changeValue);
+        }
     }
-    public abstract class ConstantVariable<T> : ScriptableObject
+    public abstract class ConstVariable<T> : ScriptableObject
     {
         [SerializeField]
         private T value;
@@ -56,8 +90,9 @@ namespace ScriptableObjectArchitecture
         [SerializeField]
         private bool ResetAfterPlayMode;
 
+        [SerializeField]
         [HideInInspector]
-        public T copyValue;
+        private T copyValue;
 #endif
         protected virtual void OnEnable()
         {
@@ -88,16 +123,73 @@ namespace ScriptableObjectArchitecture
     }
 
     //Collections
-    public abstract class Collection<T> : ScriptableObject
+    public abstract class RefCollection<T0, T1> : ScriptableObject where T1 : RefCollection<T0, T1>
     {
-        public T[] Values;
+        public interface IValueChangeOnIndex
+        {
+            void OnChanged(T1 collectionObject, int index, T0 newValue);
+        }
+
+        public interface ICollectionChnage
+        {
+            void OnChanged(T1 collectionObject, T0[] newCollection);
+        }
+
+        private readonly List<IValueChangeOnIndex> OnValueChangeOnIndexCallback = new();
+        private readonly List<ICollectionChnage> OnCollectionChangeCallback = new();
+
+        public T0 Get(int index) => values[index];
+
+        public T0[] GetCopy() => values.ToArray();
+
+
+        /// <summary>
+        /// Gets the array raw. <br />
+        /// If you use this, there interfaces won't be invoked.
+        /// </summary>
+        /// <returns></returns>
+        public T0[] Get() => values;
+
+        public void Set(int index, T0 value)
+        {
+            SetNoCallback(index, value);
+            for (int i = 0; i < OnValueChangeOnIndexCallback.Count; i++)
+            {
+                OnValueChangeOnIndexCallback[i].OnChanged((T1)this, index, value);
+            }
+        }
+
+        public void SetNoCallback(int index, T0 value)
+        {
+            values[index] = value;
+        }
+
+        public void Set(T0[] values)
+        {
+            this.values = values;
+            for (int i = 0; i < OnCollectionChangeCallback.Count; i++)
+            {
+                OnCollectionChangeCallback[i].OnChanged((T1)this, values);
+            }
+        }
+
+        public void SetNoCallback(T0[] values)
+        {
+            this.values = values;
+        }
+
+        [SerializeField]
+        private T0[] values;
+        public int Length => values.Length;
+        public long LongLength => values.LongLength;
 
 #if UNITY_EDITOR
         [SerializeField]
         private bool ResetAfterPlayMode;
 
+        [SerializeField]
         [HideInInspector]
-        public T[] copyValues;
+        private T0[] copyValues;
 #endif
         protected virtual void OnEnable()
         {
@@ -111,7 +203,7 @@ namespace ScriptableObjectArchitecture
         {
             if (ResetAfterPlayMode)
             {
-                copyValues = Values;
+                values.CopyTo(copyValues, 0);
                 EditorApplication.playModeStateChanged += EditorApplication_playModeStateChanged;
             }
         }
@@ -120,24 +212,45 @@ namespace ScriptableObjectArchitecture
         {
             if (ResetAfterPlayMode && obj == PlayModeStateChange.EnteredEditMode)
             {
-                Values = copyValues;
+                copyValues.CopyTo(values, 0);
                 EditorApplication.playModeStateChanged -= EditorApplication_playModeStateChanged;
             }
         }
 #endif
+
+        public void AddToCallback(IValueChangeOnIndex changeValue)
+        {
+            OnValueChangeOnIndexCallback.Add(changeValue);
+        }
+
+        public void AddToCallback(ICollectionChnage changeValue)
+        {
+            OnCollectionChangeCallback.Add(changeValue);
+        }
+
+        public void RemoveFromCallback(IValueChangeOnIndex changeValue)
+        {
+            OnValueChangeOnIndexCallback.Remove(changeValue);
+        }
+
+        public void RemoveFromCallback(ICollectionChnage changeValue)
+        {
+            OnCollectionChangeCallback.Add(changeValue);
+        }
     }
 
-    public abstract class ConstantCollection<T> : ScriptableObject
+    public abstract class ConstCollection<T> : ScriptableObject
     {
         [SerializeField]
-        private T[] Values;
+        private T[] values;
 
 #if UNITY_EDITOR
         [SerializeField]
         private bool ResetAfterPlayMode;
 
+        [SerializeField]
         [HideInInspector]
-        public T[] copyValues;
+        private T[] copyValues;
 #endif
         protected virtual void OnEnable()
         {
@@ -151,7 +264,7 @@ namespace ScriptableObjectArchitecture
         {
             if (ResetAfterPlayMode)
             {
-                copyValues = Values;
+                copyValues = values;
                 EditorApplication.playModeStateChanged += EditorApplication_playModeStateChanged;
             }
         }
@@ -160,19 +273,19 @@ namespace ScriptableObjectArchitecture
         {
             if (ResetAfterPlayMode && obj == PlayModeStateChange.EnteredEditMode)
             {
-                Values = copyValues;
+                values = copyValues;
                 EditorApplication.playModeStateChanged -= EditorApplication_playModeStateChanged;
             }
         }
 #endif
         public T GetValue(int i)
         {
-            return Values[i];
+            return values[i];
         }
         public T[] GetValueRange(int fromIndexInclusive, int toIndexInclusive)
         {
 #if UNITY_2021_2_OR_NEWER
-            return Values[fromIndexInclusive..(toIndexInclusive - 1)];
+            return values[fromIndexInclusive..(toIndexInclusive - 1)];
 #else
             List<T> values = new List<T>();
             for (int i = fromIndexInclusive; i <= toIndexInclusive; i++)
@@ -183,21 +296,21 @@ namespace ScriptableObjectArchitecture
 #endif
         }
 
-        public T[] GetCollection => Values;
+        public T[] GetCollection => values;
         public T Find(T item)
         {
-            for (int i = 0; i < Values.Length; i++)
+            for (int i = 0; i < values.Length; i++)
             {
-                if (Values[i].Equals(item))
+                if (values[i].Equals(item))
                 {
-                    return Values[i];
+                    return values[i];
                 }
             }
             return default;
         }
         public int GetLength()
         {
-            return Values.Length;
+            return values.Length;
         }
     }
 }

@@ -3,5 +3,5 @@
 namespace ScriptableObjectArchitecture
 {
     [CreateAssetMenu(menuName = "SO Architecture/Variable/Constant/string")]
-    public class ConstString : ConstantVariable<string> { }
+    public class ConstString : ConstVariable<string> { }
 }

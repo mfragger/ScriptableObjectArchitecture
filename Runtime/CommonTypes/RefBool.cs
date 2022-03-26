@@ -3,5 +3,5 @@
 namespace ScriptableObjectArchitecture
 {
     [CreateAssetMenu(menuName = "SO Architecture/Variable/Reference/bool")]
-    public class RefBool : Variable<bool> { }
+    public class RefBool : Variable<bool, RefBool> { }
 }
