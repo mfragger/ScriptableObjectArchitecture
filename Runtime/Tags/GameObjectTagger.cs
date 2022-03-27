@@ -1,8 +1,9 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ScriptableObjectArchitecture
 {
+    [DefaultExecutionOrder(1)]
+
     [DisallowMultipleComponent]
     public class GameObjectTagger : ObjectTagger<GameObject>
     {
@@ -15,6 +16,7 @@ namespace ScriptableObjectArchitecture
                     Tags[i].TaggedObjects.Add(gameObject);
                 }
             }
+            Filter.RunFilters();
         }
 
         protected override void OnDisable()
@@ -26,6 +28,7 @@ namespace ScriptableObjectArchitecture
                     Tags[i].TaggedObjects.Remove(gameObject);
                 }
             }
+            Filter.RunFilters();
         }
     }
 }
