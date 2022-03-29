@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -8,7 +6,7 @@ using UnityEngine;
 namespace ScriptableObjectArchitecture
 {
     //Variables
-    public abstract class Variable<T0, T1> : ScriptableObject where T1 : Variable<T0, T1>
+    public abstract class Variable<T0, T1> : ScriptableObject, IResetValues where T1 : Variable<T0, T1>
     {
         public interface IValueChange
         {
@@ -33,20 +31,34 @@ namespace ScriptableObjectArchitecture
         [SerializeField]
         protected T0 value;
 
-#if UNITY_EDITOR
         [SerializeField]
-        private bool ResetAfterPlayMode;
+        private bool includeToResetList;
 
         [SerializeField]
         [HideInInspector]
         private T0 copyValue;
+
+#if UNITY_EDITOR
+        [SerializeField]
+        private bool ResetAfterPlayMode;
 #endif
+
+
         protected virtual void OnEnable()
         {
-
 #if UNITY_EDITOR
             ResetAfterPlaymode();
 #endif
+            if (includeToResetList)
+            {
+                MakeCopy();
+                SOArchitectureUtility.Add(this);
+            }
+        }
+
+        private void OnDisable()
+        {
+            SOArchitectureUtility.Remove(this);
         }
 
 #if UNITY_EDITOR
@@ -54,16 +66,19 @@ namespace ScriptableObjectArchitecture
         {
             if (ResetAfterPlayMode)
             {
-                copyValue = Value;
+                MakeCopy();
                 EditorApplication.playModeStateChanged += EditorApplication_playModeStateChanged;
             }
         }
+#endif
 
+
+#if UNITY_EDITOR
         private void EditorApplication_playModeStateChanged(PlayModeStateChange obj)
         {
             if (ResetAfterPlayMode && obj == PlayModeStateChange.EnteredEditMode)
             {
-                Value = copyValue;
+                ResetValues();
                 EditorApplication.playModeStateChanged -= EditorApplication_playModeStateChanged;
             }
         }
@@ -77,6 +92,16 @@ namespace ScriptableObjectArchitecture
         public void RemoveFromCallback(IValueChange changeValue)
         {
             OnChangeCallbacks.Remove(changeValue);
+        }
+
+        private void MakeCopy()
+        {
+            copyValue = Value;
+        }
+
+        public void ResetValues()
+        {
+            Value = copyValue;
         }
     }
     public abstract class ConstVariable<T> : ScriptableObject
@@ -123,7 +148,7 @@ namespace ScriptableObjectArchitecture
     }
 
     //Collections
-    public abstract class RefCollection<T0, T1> : ScriptableObject where T1 : RefCollection<T0, T1>
+    public abstract class RefCollection<T0, T1> : ScriptableObject, IResetValues where T1 : RefCollection<T0, T1>
     {
         public interface IValueChangeOnIndex
         {
@@ -138,19 +163,19 @@ namespace ScriptableObjectArchitecture
         private readonly List<IValueChangeOnIndex> OnValueChangeOnIndexCallback = new();
         private readonly List<ICollectionChnage> OnCollectionChangeCallback = new();
 
-        public T0 Get(int index) => values[index];
+        public T0 GetValue(int index) => values[index];
 
         public T0[] GetCopy() => values.ToArray();
 
 
         /// <summary>
-        /// Gets the array raw. <br />
-        /// If you use this, there interfaces won't be invoked.
+        /// Gets a referrence to the array raw. <br />
+        /// If you use this, the interfaces won't be invoked.
         /// </summary>
         /// <returns></returns>
-        public T0[] Get() => values;
+        public T0[] GetCollection => values;
 
-        public void Set(int index, T0 value)
+        public void SetValue(int index, T0 value)
         {
             SetNoCallback(index, value);
             for (int i = 0; i < OnValueChangeOnIndexCallback.Count; i++)
@@ -166,7 +191,7 @@ namespace ScriptableObjectArchitecture
 
         public void Set(T0[] values)
         {
-            this.values = values;
+            SetNoCallback(values);
             for (int i = 0; i < OnCollectionChangeCallback.Count; i++)
             {
                 OnCollectionChangeCallback[i].OnChanged((T1)this, values);
@@ -183,19 +208,28 @@ namespace ScriptableObjectArchitecture
         public int Length => values.Length;
         public long LongLength => values.LongLength;
 
-#if UNITY_EDITOR
         [SerializeField]
-        private bool ResetAfterPlayMode;
+        private bool includeToResetList;
 
         [SerializeField]
         [HideInInspector]
         private T0[] copyValues;
+
+#if UNITY_EDITOR
+        [SerializeField]
+        private bool ResetAfterPlayMode;
 #endif
+
         protected virtual void OnEnable()
         {
 #if UNITY_EDITOR
             ResetAfterPlaymode();
 #endif
+            if (includeToResetList)
+            {
+                MakeCopy();
+                SOArchitectureUtility.Add(this);
+            }
         }
 
 #if UNITY_EDITOR
@@ -203,7 +237,7 @@ namespace ScriptableObjectArchitecture
         {
             if (ResetAfterPlayMode)
             {
-                values.CopyTo(copyValues, 0);
+                MakeCopy();
                 EditorApplication.playModeStateChanged += EditorApplication_playModeStateChanged;
             }
         }
@@ -212,7 +246,7 @@ namespace ScriptableObjectArchitecture
         {
             if (ResetAfterPlayMode && obj == PlayModeStateChange.EnteredEditMode)
             {
-                copyValues.CopyTo(values, 0);
+                ResetValues();
                 EditorApplication.playModeStateChanged -= EditorApplication_playModeStateChanged;
             }
         }
@@ -236,6 +270,17 @@ namespace ScriptableObjectArchitecture
         public void RemoveFromCallback(ICollectionChnage changeValue)
         {
             OnCollectionChangeCallback.Add(changeValue);
+        }
+
+
+        private void MakeCopy()
+        {
+            values.CopyTo(copyValues, 0);
+        }
+
+        public void ResetValues()
+        {
+            copyValues.CopyTo(values, 0);
         }
     }
 
