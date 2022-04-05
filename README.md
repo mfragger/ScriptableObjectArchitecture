@@ -1,7 +1,13 @@
 # ScriptableObjectArchitecture
 Another take on the ScriptableObject architecture.
 
+## Highly experimental
 This architecture is subject to lots of changes on a per-need-basis.
+
+## Install
+Go to ``Package Manager`` -> ``Add Package from git URL``
+Paste the following
+```https://github.com/BarelyAStudio/ScriptableObjectArchitecture.git```
 
 ## LICENSE
 
