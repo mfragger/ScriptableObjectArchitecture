@@ -1,4 +1,4 @@
-# ScriptableObjectArchitecture
+# ScriptableObject Architecture
 Another take on the ScriptableObject architecture.
 
 ## Highly experimental
