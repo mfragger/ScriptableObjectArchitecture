@@ -43,7 +43,6 @@ namespace ScriptableObjectArchitecture
         private bool ResetAfterPlayMode;
 #endif
 
-
         protected virtual void OnEnable()
         {
 #if UNITY_EDITOR
@@ -163,17 +162,32 @@ namespace ScriptableObjectArchitecture
         private readonly List<IValueChangeOnIndex> OnValueChangeOnIndexCallback = new();
         private readonly List<ICollectionChnage> OnCollectionChangeCallback = new();
 
-        public T0 GetValue(int index) => values[index];
+        [SerializeField]
+        private T0[] values;
+        public int Length => values.Length;
+        public long LongLength => values.LongLength;
 
-        public T0[] GetCopy() => values.ToArray();
+        [SerializeField]
+        private bool includeToResetList;
 
+        [SerializeField]
+        [HideInInspector]
+        private T0[] copyValues;
+
+#if UNITY_EDITOR
+        [SerializeField]
+        private bool ResetAfterPlayMode;
+#endif
 
         /// <summary>
         /// Gets a referrence to the array raw. <br />
-        /// If you use this, the interfaces won't be invoked.
+        /// Any changes to this won't invoke the interfaces.
         /// </summary>
-        /// <returns></returns>
         public T0[] GetCollection => values;
+
+        public T0 GetValue(int index) => values[index];
+
+        public T0[] GetCopy() => values.ToArray();
 
         public void SetValue(int index, T0 value)
         {
@@ -202,23 +216,6 @@ namespace ScriptableObjectArchitecture
         {
             this.values = values;
         }
-
-        [SerializeField]
-        private T0[] values;
-        public int Length => values.Length;
-        public long LongLength => values.LongLength;
-
-        [SerializeField]
-        private bool includeToResetList;
-
-        [SerializeField]
-        [HideInInspector]
-        private T0[] copyValues;
-
-#if UNITY_EDITOR
-        [SerializeField]
-        private bool ResetAfterPlayMode;
-#endif
 
         protected virtual void OnEnable()
         {
@@ -271,7 +268,6 @@ namespace ScriptableObjectArchitecture
         {
             OnCollectionChangeCallback.Add(changeValue);
         }
-
 
         private void MakeCopy()
         {
