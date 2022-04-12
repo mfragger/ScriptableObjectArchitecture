@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ScriptableObjectArchitecture.Interface
 {
     [CreateAssetMenu(menuName = "SO Architecture/Runtime/Interface")]
-    public class Interface : ScriptableObject
+    public class SOInterface : ScriptableObject
     {
         private readonly List<IInterface> interfaces = new();
 

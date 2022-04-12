@@ -1,5 +1,6 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEditor.SceneManagement;
 #if USE_ADDRESSABLES_1_16_19_OR_NEWER
 using UnityEngine.AddressableAssets;
 #endif
@@ -34,6 +35,12 @@ namespace ScriptableObjectArchitecture.SceneManagement
 #if UNITY_EDITOR
                 else
                 {
+                    //try
+                    //{
+                    EditorSceneManager.UnloadSceneAsync(scene[i].editorAsset.name, unloadSceneOptions);
+                    //SceneManager.UnloadSceneAsync(scene[i].editorAsset.name, unloadSceneOptions);
+                    //}
+                    //catch { }
                 }
 #endif
             }

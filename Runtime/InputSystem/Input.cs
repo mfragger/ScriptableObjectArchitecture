@@ -15,7 +15,7 @@ namespace ScriptableObjectArchitecture.InputSystem
             DisableAllPlayerInput();
         }
 
-        protected abstract void EnableAllPlayerInput();
-        protected abstract void DisableAllPlayerInput();
+        public abstract void EnableAllPlayerInput();
+        public abstract void DisableAllPlayerInput();
     }
 }

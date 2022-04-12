@@ -1,18 +1,19 @@
 {
-  "name": "com.mfragger.scriptableobjectarchitecture",
-  "version": "0.10.0-alpha",
-  "displayName": "Scriptable Object Architecture",
-  "description": "[Experimental] Another take on the Scriptable Object Architecture",
+  "name": "com.barelyastudio.scriptableobjectarchitecture",
+  "version": "0.11.1-alpha",
+  "displayName": "ScriptableObject Architecture",
+  "description": "[Experimental] Another take on the ScriptableObject Architecture",
   "author": {
     "name": "mfragger"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mfragger/ScriptableObjectArchitecture"
+    "url": "https://github.com/BarelyAStudio/ScriptableObjectArchitecture"
   },
   "keywords": [
-    "scriptable object",
+    "scriptableobject",
     "framework",
     "architecture"
-  ]
+  ],
+  "unity": "2021.2"
 }
