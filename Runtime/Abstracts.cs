@@ -15,7 +15,7 @@ namespace ScriptableObjectArchitecture
 
         protected readonly List<IValueChange> OnChangeCallbacks = new();
 
-        public T0 Value
+        public virtual T0 Value
         {
             get => value;
             set
