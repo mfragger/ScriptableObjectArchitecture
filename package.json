@@ -1,6 +1,6 @@
 {
   "name": "com.barelyastudio.scriptableobjectarchitecture",
-  "version": "0.11.2-alpha",
+  "version": "0.12.0-alpha",
   "displayName": "ScriptableObject Architecture",
   "description": "[Experimental] Another take on the ScriptableObject Architecture",
   "author": {

@@ -2,7 +2,7 @@
 
 namespace ScriptableObjectArchitecture
 {
-    public static class SOArchitectureUtility
+    public static class ScriptableObjectArchitectureUtility
     {
         internal static readonly List<IResetValues> resetValues = new();
 
@@ -15,11 +15,11 @@ namespace ScriptableObjectArchitecture
             }
         }
 
-        internal static void Add(IResetValues resetValue)
+        public static void Add(IResetValues resetValue)
         {
             resetValues.Add(resetValue);
         }
-        internal static void Remove(IResetValues resetValue)
+        public static void Remove(IResetValues resetValue)
         {
             resetValues.Remove(resetValue);
         }

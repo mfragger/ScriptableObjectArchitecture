@@ -1,6 +1,6 @@
 ﻿namespace ScriptableObjectArchitecture
 {
-    internal interface IResetValues
+    public interface IResetValues
     {
         void ResetValues();
     }
