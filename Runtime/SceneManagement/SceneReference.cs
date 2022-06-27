@@ -30,12 +30,12 @@ using System.Runtime.CompilerServices;
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.SceneManagement;
+#endif
 
 [assembly: InternalsVisibleTo("ScriptableObjectArchitecture.Editor")]
 
 namespace ScriptableObjectArchitecture.SceneManagement
 {
-#endif
 
     // Author: JohannesMP (2018-08-12)
     //

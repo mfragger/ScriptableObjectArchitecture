@@ -1,6 +1,8 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor.SceneManagement;
+#endif
 #if USE_ADDRESSABLES_1_16_19_OR_NEWER
 using UnityEngine.AddressableAssets;
 #endif
@@ -17,6 +19,9 @@ namespace ScriptableObjectArchitecture.SceneManagement
         private UnloadSceneOptions unloadSceneOptions;
 #endif
 
+        [SerializeField]
+        private SceneSettings SceneSettings;
+
         public void UnloadScene()
         {
 #if USE_ADDRESSABLES_1_16_19_OR_NEWER
@@ -31,16 +36,15 @@ namespace ScriptableObjectArchitecture.SceneManagement
 #endif
                     Addressables.Release(SceneHandler.operationHandlers[scene[i].AssetGUID]);
                     SceneHandler.operationHandlers.Remove(scene[i].AssetGUID);
+                    if (SceneHandler.operationHandlers.Count <= 0)
+                    {
+                        Addressables.ReleaseInstance(SceneSettings.SceneHandleOperation);
+                    }
                 }
 #if UNITY_EDITOR
                 else
                 {
-                    //try
-                    //{
                     EditorSceneManager.UnloadSceneAsync(scene[i].editorAsset.name, unloadSceneOptions);
-                    //SceneManager.UnloadSceneAsync(scene[i].editorAsset.name, unloadSceneOptions);
-                    //}
-                    //catch { }
                 }
 #endif
             }
