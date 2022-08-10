@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ScriptableObjectArchitecture.EventFunctions
 {
@@ -10,37 +11,43 @@ namespace ScriptableObjectArchitecture.EventFunctions
 
         private List<GameObject> results;
 
+        private Task<List<GameObject>> task;
+
         protected virtual void Start()
         {
-            results = Filter.ResultsList;
+            task = Filter.RunFilterAsync();
         }
 
-        protected void Invoke(Collision other)
+        protected async void Invoke(Collision other)
         {
+            results = await task;
             if (results.Contains(other.gameObject))
             {
                 Response.Invoke();
             }
         }
 
-        protected void Invoke(Collider other)
+        protected async void Invoke(Collider other)
         {
+            results = await task;
             if (results.Contains(other.gameObject))
             {
                 Response.Invoke();
             }
         }
 
-        protected void Invoke(Collision2D other)
+        protected async void Invoke(Collision2D other)
         {
+            results = await task;
             if (results.Contains(other.gameObject))
             {
                 Response.Invoke();
             }
         }
 
-        protected void Invoke(Collider2D other)
+        protected async void Invoke(Collider2D other)
         {
+            results = await task;
             if (results.Contains(other.gameObject))
             {
                 Response.Invoke();

@@ -16,7 +16,6 @@ namespace ScriptableObjectArchitecture
                     Tags[i].TaggedObjects.Add(gameObject);
                 }
             }
-            Filter.RunFilters();
         }
 
         protected override void OnDisable()
@@ -28,7 +27,6 @@ namespace ScriptableObjectArchitecture
                     Tags[i].TaggedObjects.Remove(gameObject);
                 }
             }
-            Filter.RunFilters();
         }
     }
 }
